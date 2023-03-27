@@ -1,2 +1,2 @@
-# assessment-task-term-1
-Assessment Task 1
+# assessment-task-1
+Assessment task 1
