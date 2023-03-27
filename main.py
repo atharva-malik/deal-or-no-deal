@@ -12,10 +12,13 @@ def init_briefcases():
               750000, 1000000]
     for i in range(1, 27):
         briefcases[str(i)] = amount.pop(amount.index(random.choice(amount)))
+    return briefcases
 
 def deal_or_no_deal():
     briefcases = init_briefcases()
     offer = 0
+    remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                            16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
     briefcases_to_eliminate = 6
     print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
     for i in range(0, briefcases_to_eliminate):
@@ -24,7 +27,6 @@ def deal_or_no_deal():
         remaining_briefcases.remove(number_to_eliminate)
     briefcases_to_eliminate -= 1
     offer = get_offer(briefcases)
-    print("Remaining briefcases:", briefcases, "List", remaining_briefcases, "\nOffer: $", offer)
     while briefcases_to_eliminate >= 1:
         offer = get_offer(briefcases)
         print("Remaining briefcases:", len(remaining_briefcases), remaining_briefcases, "Offer: $", offer, "Deal or no deal?")
