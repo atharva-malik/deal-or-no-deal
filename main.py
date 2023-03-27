@@ -24,10 +24,11 @@ def deal_or_no_deal():
     print("Remaining briefcases:", briefcases, "List", remaining_briefcases, "\nOffer: $", offer)
     while briefcases_to_eliminate >= 1:
         offer = get_offer(briefcases)
-        print("Remaining briefcases:", len(remaining_briefcases), "Offer: $", offer, "Deal or no deal?")
+        print("Remaining briefcases:", len(remaining_briefcases), remaining_briefcases, "Offer: $", offer, "Deal or no deal?")
         choice = input("[D]eal or [n]o deal? ")
         if choice.lower() == "d":
             print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
+            break
         elif choice.lower() == "n":
             if briefcases_to_eliminate == 1 and len(remaining_briefcases) == 1:
                 print("You have one briefcase left. You must take it.")
