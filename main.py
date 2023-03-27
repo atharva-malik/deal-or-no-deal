@@ -6,13 +6,16 @@ def get_offer(briefcases):
     return offer
 
 
-def deal_or_no_deal():
-    briefcases= {}
-    offer = 0
+def init_briefcases():
+    briefcases = {}
+    amount = [0.1, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000,
+              750000, 1000000]
     for i in range(1, 27):
-        briefcases[str(i)] = random.randint(1, 1000000)
-    remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                            16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        briefcases[str(i)] = amount.pop(amount.index(random.choice(amount)))
+
+def deal_or_no_deal():
+    briefcases = init_briefcases()
+    offer = 0
     briefcases_to_eliminate = 6
     print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
     for i in range(0, briefcases_to_eliminate):
