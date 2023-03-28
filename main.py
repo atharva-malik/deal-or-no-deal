@@ -15,26 +15,34 @@ def init_briefcases():
     return briefcases
 
 def deal_or_no_deal():
+    #* Initialise all the variables
     briefcases = init_briefcases()
     offer = 0
     remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                             16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
     briefcases_to_eliminate = 6
+
+    #* Starts the first sequence as you have no choice other than to eliminate 6 briefcases
     print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
-    for i in range(0, briefcases_to_eliminate):
+    for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
         number_to_eliminate = int(input("Briefcase to eliminate: "))
         print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
         remaining_briefcases.remove(number_to_eliminate)
     briefcases_to_eliminate -= 1
     offer = get_offer(briefcases)
+    
+    #* Starts the loop that allows the user to choose [D]eal or [N]o Deal
     while briefcases_to_eliminate >= 1:
+        #* Allows the user to view the offer and choose to take it
         offer = get_offer(briefcases)
         print("Remaining briefcases:", len(remaining_briefcases), remaining_briefcases, "Offer: $", offer, "Deal or no deal?")
-        choice = input("[D]eal or [n]o deal? ")
+        choice = input("[D]eal or [N]o Deal? ")
         if choice.lower() == "d":
+            #* Stops the game and congratulates the user for accepting it
             print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
             break
         elif choice.lower() == "n":
+            #* Checks how many briefcases are left and 
             if briefcases_to_eliminate == 1 and len(remaining_briefcases) == 1:
                 print("You have one briefcase left. You must take it.")
                 print("You won $", briefcases.pop(str(remaining_briefcases[0])), "!")
