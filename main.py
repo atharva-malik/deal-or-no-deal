@@ -6,30 +6,43 @@ def get_offer(briefcases):
     return offer
 
 
-def deal_or_no_deal():
-    briefcases= {}
-    offer = 0
+def init_briefcases():
+    briefcases = {}
+    amount = [0.1, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000,
+              750000, 1000000]
     for i in range(1, 27):
-        briefcases[str(i)] = random.randint(1, 1000000)
+        briefcases[str(i)] = amount.pop(amount.index(random.choice(amount)))
+    return briefcases
+
+def deal_or_no_deal():
+    #* Initialise all the variables
+    briefcases = init_briefcases()
+    offer = 0
     remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                             16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
     briefcases_to_eliminate = 6
+
+    #* Starts the first sequence as you have no choice other than to eliminate 6 briefcases
     print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
-    for i in range(0, briefcases_to_eliminate):
+    for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
         number_to_eliminate = int(input("Briefcase to eliminate: "))
         print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
         remaining_briefcases.remove(number_to_eliminate)
     briefcases_to_eliminate -= 1
     offer = get_offer(briefcases)
-    print("Remaining briefcases:", briefcases, "List", remaining_briefcases, "\nOffer: $", offer)
+    
+    #* Starts the loop that allows the user to choose [D]eal or [N]o Deal
     while briefcases_to_eliminate >= 1:
+        #* Allows the user to view the offer and choose to take it
         offer = get_offer(briefcases)
         print("Remaining briefcases:", len(remaining_briefcases), remaining_briefcases, "Offer: $", offer, "Deal or no deal?")
-        choice = input("[D]eal or [n]o deal? ")
+        choice = input("[D]eal or [N]o Deal? ")
         if choice.lower() == "d":
+            #* Stops the game and congratulates the user for accepting it
             print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
             break
         elif choice.lower() == "n":
+            #* Checks how many briefcases are left and 
             if briefcases_to_eliminate == 1 and len(remaining_briefcases) == 1:
                 print("You have one briefcase left. You must take it.")
                 print("You won $", briefcases.pop(str(remaining_briefcases[0])), "!")
