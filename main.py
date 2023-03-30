@@ -42,7 +42,7 @@ def deal_or_no_deal():
             print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
             break
         elif choice.lower() == "n":
-            #* Checks how many briefcases are left and 
+            #* Checks how many briefcases are left and runs the correct version
             if briefcases_to_eliminate == 1 and len(remaining_briefcases) == 1:
                 print("You have one briefcase left. You must take it.")
                 print("You won $", briefcases.pop(str(remaining_briefcases[0])), "!")
@@ -60,6 +60,7 @@ def deal_or_no_deal():
                     remaining_briefcases.remove(number_to_eliminate)
                 briefcases_to_eliminate -= 1
         else:
+            #* If the input is incorrect, the loop restarts
             continue
 
 print("You know how to play this. Please add instructions later")
