@@ -6,7 +6,7 @@ def cli(command):
         print("""[HELP]: Displays this
 [EXIT]: To quit the app
 [L]ogin: Allows user login
-[T]utorial: Runs the game in tutorial mode
+[Tutorial]: Runs the game in tutorial mode
 [G]uest: To play as guest
 [2] player: Runs game in 2 player mode
 [3] player: Runs game in 3 player mode
@@ -18,17 +18,18 @@ def cli(command):
     elif command.lower() == "g": #todo add the login function
         print(red("Warning: You are playing as a guest! Your score won't be considered for the highscore! CTRL + C to quit!", "bold"))
         functions.deal_or_no_deal()
-    elif command.lower() == "[Tutorial]":
+    elif command.lower() == "tutorial":
+        print(red("Warning: You are playing in tutorial mode! Your score won't be considered for the highscore! CTRL + C to quit!", "bold"))
+        functions.tutorial()
+    elif command.lower() == "2":
         pass
-    elif command.lower() == "[2]":
+    elif command.lower() == "3":
         pass
-    elif command.lower() == "[3]":
+    elif command.lower() == "4":
         pass
-    elif command.lower() == "[4]":
+    elif command.lower() == "highscore":
         pass
-    elif command.lower() == "[Highscore]":
-        pass
-    elif command.lower() == "[Settings]": 
+    elif command.lower() == "[settings]": 
         pass
 
 if __name__ == "__main__":
