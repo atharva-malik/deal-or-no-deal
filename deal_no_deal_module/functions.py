@@ -88,7 +88,8 @@ def change_setting():
         f.write("noMusic\n")
         f.write("noSfx")
 change_setting()
-=======
+
+
 def tutorial():
     #* Initialise all the variables
     briefcases = init_briefcases()
