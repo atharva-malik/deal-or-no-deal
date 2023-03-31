@@ -4,6 +4,7 @@ from playsound import playsound
 import time
 import os
 
+
 def play_background_music():
     audio_file = os.path.dirname(__file__) + '\\experiments\\KomuramBheemudo.mp3'
     playsound(audio_file)
@@ -77,3 +78,11 @@ def deal_or_no_deal():
         else:
             #* If the input is incorrect, the loop restarts
             continue
+
+
+def change_setting():
+    setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
+    with open(setting_path, "w") as f:
+        f.write("noMusic\n")
+        f.write("noSfx")
+change_setting()
