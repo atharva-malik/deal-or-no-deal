@@ -81,12 +81,33 @@ def deal_or_no_deal():
             continue
 
 
-<<<<<<< HEAD
 def change_setting():
     setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
     with open(setting_path, "w") as f:
-        f.write("noMusic\n")
-        f.write("noSfx")
+        f.write("yesMusic\n")
+        f.write("yesSfx")
+
+def change_setting():
+    setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
+    settings = []
+    with open(setting_path, "r") as f:
+        for setting in f.readlines():
+            settings.append(setting.strip("\n"))
+    setting_to_toggle = input("The current settings are: " + str(settings[0]).capitalize() + ", " + str(settings[1]).capitalize() + ". \nEnter setting name to toggle: ")
+    if "music" in setting_to_toggle.lower():
+        if settings[0] == "yes music":
+            settings = ["no music", "\n", settings[1]]
+        elif settings[0] == "no music":
+            settings = ["yes music", "\n", settings[1]]
+    elif "sfx" in setting_to_toggle.lower():
+        if settings[1] == "yes sfx":
+            settings = [settings[0], "\n", "no sfx"]
+        elif settings[1] == "no sfx":
+            settings = [settings[0], "\n", "yes sfx"]
+    else:
+        print(red("Wrong Input! Redirecting you to home!", "bold"))
+    with open(setting_path, "w") as f:
+        f.writelines(settings)
 change_setting()
 
 
@@ -148,4 +169,3 @@ If you decline the game continues"""))
         else:
             #* If the input is incorrect, the loop restarts
             continue
->>>>>>> 2ceb1091c5e3cfb635bd6aadc1d1484978daf36b

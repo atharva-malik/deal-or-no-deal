@@ -148,3 +148,28 @@ except:
 while 1:
     pass
 """
+
+"""
+import keyboard 
+
+abc = True
+
+def run_func():
+    global abc
+    print('Hi, welcome!')
+    print('If you want to do this, press A or press B for doing that.')
+    while abc:
+        if keyboard.is_pressed('a'):
+            print('This function is run!')
+            abc = True
+
+        elif keyboard.is_pressed('b'):
+            print('That function is run!')
+            abc = True
+
+print('To start press S')
+while abc:
+    if keyboard.is_pressed('S'): 
+        run_func()
+    abc = True
+"""

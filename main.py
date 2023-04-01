@@ -30,7 +30,7 @@ def cli(command):
     elif command.lower() == "highscore":
         pass
     elif command.lower() == "[settings]": 
-        pass
+        functions.change_setting()
 
 if __name__ == "__main__":
     print("You know how to play this. Please add instructions later")
