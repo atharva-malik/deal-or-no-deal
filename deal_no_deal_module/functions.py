@@ -4,7 +4,7 @@ from playsound import playsound
 import time
 import os
 from simple_colors import *
-
+import keyboard
 
 def play_background_music():
     audio_file = os.path.dirname(__file__) + '\\experiments\\KomuramBheemudo.mp3'
@@ -83,32 +83,33 @@ def deal_or_no_deal():
 
 def change_setting():
     setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
-    with open(setting_path, "w") as f:
-        f.write("yesMusic\n")
-        f.write("yesSfx")
-
-def change_setting():
-    setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
     settings = []
     with open(setting_path, "r") as f:
         for setting in f.readlines():
             settings.append(setting.strip("\n"))
-    setting_to_toggle = input("The current settings are: " + str(settings[0]).capitalize() + ", " + str(settings[1]).capitalize() + ". \nEnter setting name to toggle: ")
-    if "music" in setting_to_toggle.lower():
-        if settings[0] == "yes music":
-            settings = ["no music", "\n", settings[1]]
-        elif settings[0] == "no music":
-            settings = ["yes music", "\n", settings[1]]
-    elif "sfx" in setting_to_toggle.lower():
-        if settings[1] == "yes sfx":
-            settings = [settings[0], "\n", "no sfx"]
-        elif settings[1] == "no sfx":
-            settings = [settings[0], "\n", "yes sfx"]
-    else:
-        print(red("Wrong Input! Redirecting you to home!", "bold"))
+    print("The current settings are: " + str(settings[0]).capitalize() + ", " + str(settings[1]).capitalize() + ". \nPress m to toggle music, s to toggle sfx.")
+    while True:
+        if keyboard.is_pressed("m"):
+            if settings[0] == "yes music":
+                settings = ["no music\n", settings[1]]
+                print(magenta("Turned the background music off."))
+                break
+            elif settings[0] == "no music":
+                settings = ["yes music\n", settings[1]]
+                print(magenta("Turned the background music on."))
+                break
+        elif keyboard.is_pressed("s"):
+            if settings[1] == "yes sfx":
+                settings = [settings[0] + "\n", "no sfx"]
+                print(magenta("Turned the sound effects off."))
+                break
+            elif settings[1] == "no sfx":
+                settings = [settings[0] + "\n", "yes sfx"]
+                print(magenta("Turned the sound effects on."))
+                break
     with open(setting_path, "w") as f:
         f.writelines(settings)
-change_setting()
+    time.sleep(0.5)
 
 
 def tutorial():
