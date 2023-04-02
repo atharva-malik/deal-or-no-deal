@@ -24,7 +24,11 @@ CTRL + C: To quit the app
             username = functions.login_or_signup()
             print(green(str("Welcome, " + username + "! Nice to see you back!"), "bold"))
             score = functions.deal_or_no_deal() #todo Store this for pb!
-            print(score)
+            with open("high.scores", "r") as f:
+                scores = f.readlines()
+            with open("high.scores", "w") as f:
+                scores.append(str(score))
+                f.writelines(scores)
             break
         elif keyboard.is_pressed("g"):
             print(red("Warning: You are playing as a guest! Your score won't be considered for the highscore! CTRL + C to quit!", "bold"))
