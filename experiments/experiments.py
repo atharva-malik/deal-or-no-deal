@@ -57,7 +57,7 @@ audio_file = os.path.dirname(__file__) + '\\KomuramBheemudo.mp3'
 playsound(audio_file)
 """
 
-"""COLOURS IN TERMINAL
+#COLOURS IN TERMINAL
 from simple_colors import * #! pip install simple_colors
 
 all_colours = ["black", "red", "green", "yellow", "blue", "magenta", "cyan"]
@@ -75,7 +75,12 @@ all_styles = [
 for style in all_styles:
     print(style, ": ", red('red', style), "\n")
     print(style, ": ", green('green', style), "\n")
-"""
+    print(style, ": ", black('black', style), "\n")
+    print(style, ": ", yellow('yellow', style), "\n")
+    print(style, ": ", blue('blue', style), "\n")
+    print(style, ": ", magenta('magenta', style), "\n")
+    print(style, ": ", cyan('cyan', style), "\n")
+
 
 """MULTI THREADING
 import _thread
