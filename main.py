@@ -2,6 +2,20 @@ from deal_no_deal_module import functions
 from simple_colors import * #! pip install simple_colors
 import time, os, keyboard
 
+
+def add_float_in_descending_order(numbers, new_number):
+    #* Convert the strings to floats, and add the new float
+    numbers = [float(n) for n in numbers] + [new_number]
+    #* Sort the list in descending order
+    numbers = sorted(numbers, reverse=True)
+    #* Truncate the list to 10 elements if necessary
+    if len(numbers) > 10:
+        numbers = numbers[:10]
+    #* Convert the floats back to strings and return the result
+    return [str(n)+"\n" for n in numbers]
+
+
+
 def cli():
     while True:
         if keyboard.is_pressed("a"):
@@ -24,10 +38,11 @@ CTRL + C: To quit the app
             username = functions.login_or_signup()
             print(green(str("Welcome, " + username + "! Nice to see you back!"), "bold"))
             score = functions.deal_or_no_deal() #todo Store this for pb!
+            num1 = 0
             with open("high.scores", "r") as f:
                 scores = f.readlines()
             with open("high.scores", "w") as f:
-                scores.append(str(score))
+                scores = add_float_in_descending_order(scores, score)
                 f.writelines(scores)
             break
         elif keyboard.is_pressed("g"):
@@ -51,6 +66,13 @@ CTRL + C: To quit the app
             break
         elif keyboard.is_pressed("h"):
             keyboard.press("backspace")
+            with open("high.scores", "r") as f:
+                scores = f.readlines()
+            highscores = ""
+            for score in scores:
+                highscores += magenta(score)
+            print(highscores)
+            time.sleep(0.5)
             break
         elif keyboard.is_pressed("s"):
             time.sleep(0.5)
@@ -60,5 +82,5 @@ CTRL + C: To quit the app
 
 if __name__ == "__main__":
     while True:
-        print("Press the required key. Press A for assistance: ")
+        print(green("Press the required key. Press A for assistance: "))
         cli()

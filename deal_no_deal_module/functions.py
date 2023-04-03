@@ -24,6 +24,7 @@ def play_background_music():
 
 def get_offer(briefcases):
     offer = sum(briefcases.values()) / len(briefcases) #TODO: Try to make this more exciting
+    offer = round(offer, 2)
     return offer
 
 
