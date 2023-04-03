@@ -1,6 +1,7 @@
 import random
 import _thread
-from playsound import playsound
+#import vlc
+import playsound
 import time
 import getpass
 import os
@@ -19,7 +20,9 @@ def list_to_string(list):
 
 def play_background_music():
     audio_file = os.path.dirname(__file__).replace("deal_no_deal_module", "") + '\\song.mp3'
-    playsound(audio_file)
+    #player = vlc.MediaPlayer(audio_file)
+    #player.play()
+    playsound(audio_file, False)
 
 
 def get_offer(briefcases):

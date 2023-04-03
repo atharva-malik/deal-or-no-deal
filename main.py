@@ -102,11 +102,5 @@ if __name__ == "__main__":
     elif functions.check_setting() == "music":
         print("Condition 2")
         # Create two threads as follows
-        try:
-            functions.play_background_music()
-            _thread.start_new_thread(functions.play_background_music, ())
-            _thread.start_new_thread(main, ())
-            while 1:
-                pass
-        except Exception as e:
-            print ("Error: unable to start thread", e)
+        functions.play_background_music()
+        main()
