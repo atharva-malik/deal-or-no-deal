@@ -55,7 +55,7 @@ def cli():
             keyboard.press("backspace")
             functions.tutorial()
             break
-        elif keyboard.is_pressed("2"):
+        elif keyboard.is_pressed("2"): # todo add 2 player, 3 player, and 4 player mode
             keyboard.press("backspace")
             break
         elif keyboard.is_pressed("3"):
@@ -74,7 +74,7 @@ def cli():
             print(highscores)
             time.sleep(0.5)
             break
-        elif keyboard.is_pressed("s"):
+        elif keyboard.is_pressed("s"): # todo add actual sounds to make this work!!!
             time.sleep(0.5)
             keyboard.press("backspace")
             functions.change_setting()
