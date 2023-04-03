@@ -18,7 +18,7 @@ def list_to_string(list):
 
 
 def play_background_music():
-    audio_file = os.path.dirname(__file__) + '\\experiments\\KomuramBheemudo.mp3'
+    audio_file = os.path.dirname(__file__).replace("deal_no_deal_module", "") + '\\song.mp3'
     playsound(audio_file)
 
 
@@ -108,30 +108,31 @@ def change_setting():
     settings = []
     with open(setting_path, "r") as f:
         for setting in f.readlines():
-            settings.append(setting.strip("\n"))
-    print("The current settings are: " + str(settings[0]).capitalize() + ", " + str(settings[1]).capitalize() + ". \nPress m to toggle music, s to toggle sfx.")
-    while True:
-        if keyboard.is_pressed("m"):
-            if settings[0] == "yes music":
-                settings = ["no music\n", settings[1]]
-                print(magenta("Turned the background music off."))
-                break
-            elif settings[0] == "no music":
-                settings = ["yes music\n", settings[1]]
-                print(magenta("Turned the background music on."))
-                break
-        elif keyboard.is_pressed("s"):
-            if settings[1] == "yes sfx":
-                settings = [settings[0] + "\n", "no sfx"]
-                print(magenta("Turned the sound effects off."))
-                break
-            elif settings[1] == "no sfx":
-                settings = [settings[0] + "\n", "yes sfx"]
-                print(magenta("Turned the sound effects on."))
-                break
-    with open(setting_path, "w") as f:
-        f.writelines(settings)
-    time.sleep(0.5)
+            settings.append(setting.strip("\n"))    
+    if settings[0] == "yes music":
+        settings = ["no music"]
+        print(magenta("Turned the background music off."))
+        with open(setting_path, "w") as f:
+            f.writelines(settings)
+        return "no_music"
+    elif settings[0] == "no music":
+        settings = ["yes music"]
+        print(magenta("Turned the background music on."))
+        with open(setting_path, "w") as f:
+            f.writelines(settings)
+        return "music"
+
+
+def check_setting():
+    setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
+    settings = []
+    with open(setting_path, "r") as f:
+        for setting in f.readlines():
+            settings.append(setting.strip("\n"))    
+    if settings[0] == "yes music":
+        return "music"
+    elif settings[0] == "no music":
+        return "no_music"
 
 
 def tutorial():

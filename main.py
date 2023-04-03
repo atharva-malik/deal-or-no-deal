@@ -1,6 +1,7 @@
 from deal_no_deal_module import functions
 from simple_colors import * #! pip install simple_colors
 import time, os, keyboard
+import _thread
 
 
 def add_float_in_descending_order(numbers, new_number):
@@ -83,8 +84,29 @@ def cli():
             keyboard.press("backspace")
             return "break"
 
-if __name__ == "__main__":
+
+#def background_music():
+
+
+
+def main():
     while True:
         print(green("Press the required key. Press A for assistance: "))
         if cli() == "break":
             break
+
+if __name__ == "__main__":
+    if functions.check_setting() == "no_music": #This means no music
+        print("Condition 1")
+        main()
+    elif functions.check_setting() == "music":
+        print("Condition 2")
+        # Create two threads as follows
+        try:
+            functions.play_background_music()
+            _thread.start_new_thread(functions.play_background_music, ())
+            _thread.start_new_thread(main, ())
+            while 1:
+                pass
+        except Exception as e:
+            print ("Error: unable to start thread", e)
