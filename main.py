@@ -20,7 +20,7 @@ def cli():
     while True:
         if keyboard.is_pressed("a"):
             print("""[A]: Displays this message
-CTRL + C: To quit the app
+[E]: To quit the app
 [L]ogin/Signup: Allows user login
 [T]utorial: Runs the game in tutorial mode
 [G]uest: To play as guest
@@ -79,8 +79,12 @@ CTRL + C: To quit the app
             keyboard.press("backspace")
             functions.change_setting()
             break
+        elif keyboard.is_pressed("e"):
+            keyboard.press("backspace")
+            return "break"
 
 if __name__ == "__main__":
     while True:
         print(green("Press the required key. Press A for assistance: "))
-        cli()
+        if cli() == "break":
+            break
