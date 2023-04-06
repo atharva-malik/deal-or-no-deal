@@ -1,7 +1,6 @@
 from deal_no_deal_module import functions
 from simple_colors import * #! pip install simple_colors
 import time, os, keyboard
-import _thread
 
 
 def add_float_in_descending_order(numbers, new_number):
