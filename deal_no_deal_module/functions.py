@@ -1,13 +1,14 @@
 import random
 import _thread
 #import vlc
-import playsound
+from playsound import playsound
 import time
 import getpass
 import os
 from simple_colors import *
 import json
 import keyboard
+#from deal_no_deal_module.passwords_module import password_management
 from deal_no_deal_module.passwords_module import password_management
 
 

@@ -97,10 +97,7 @@ def main():
 
 if __name__ == "__main__":
     if functions.check_setting() == "no_music": #This means no music
-        print("Condition 1")
         main()
     elif functions.check_setting() == "music":
-        print("Condition 2")
-        # Create two threads as follows
         functions.play_background_music()
         main()
