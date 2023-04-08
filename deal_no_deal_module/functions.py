@@ -1,13 +1,14 @@
-import random
+import random, time, getpass, os, json, keyboard
 from playsound import playsound
-import time
-import getpass
-import os
 from simple_colors import *
-import json
-import keyboard
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+from pygame import mixer
 from deal_no_deal_module.passwords_module import password_management
 
+
+mixer.init()
+audio_file = os.path.dirname(__file__).replace("deal_no_deal_module", "") + '\\lofi.mp3'
+mixer.music.load(audio_file)
 
 def list_to_string(list):
     string = ""
@@ -17,10 +18,11 @@ def list_to_string(list):
 
 
 def play_background_music():
-    audio_file = os.path.dirname(__file__).replace("deal_no_deal_module", "") + '\\song.mp3'
-    #player = vlc.MediaPlayer(audio_file)
-    #player.play()
-    playsound(audio_file, False)
+    mixer.music.play(loops=-1)
+
+
+def stop_background_music():
+    mixer.music.stop()
 
 
 def get_offer(briefcases):

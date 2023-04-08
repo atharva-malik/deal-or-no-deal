@@ -89,14 +89,15 @@ def cli():
 
 
 def main():
-    while True:
-        print(green("Press the required key. Press A for assistance: "))
-        if cli() == "break":
-            break
+    print(green("Press the required key. Press A for assistance: "))
+    if cli() == "break":
+        return "break"
 
 if __name__ == "__main__":
-    if functions.check_setting() == "no_music": #This means no music
-        main()
-    elif functions.check_setting() == "music":
-        functions.play_background_music()
-        main()
+    output = ""
+    while True:
+        if functions.check_setting() == "no_music": #This means no music
+            functions.stop_background_music()
+        elif functions.check_setting() == "music":
+            functions.play_background_music()
+        output = main()
