@@ -28,7 +28,7 @@ def cli():
 [3] player: Runs game in 3 player mode
 [4] player: Runs game in 3 player mode
 [H]ighscore: Shows the list of high scores
-[S]ettings: Allows user to change the settings""")
+[S]ettings: Allows user to turn background music on/off""")
             time.sleep(1)
             keyboard.press("backspace")
             break
@@ -74,7 +74,7 @@ def cli():
             print(highscores)
             time.sleep(0.5)
             break
-        elif keyboard.is_pressed("s"): # todo add actual sounds to make this work!!!
+        elif keyboard.is_pressed("s"):
             time.sleep(0.5)
             keyboard.press("backspace")
             functions.change_setting()
