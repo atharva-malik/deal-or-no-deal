@@ -84,10 +84,6 @@ def cli():
             return "break"
 
 
-#def background_music():
-
-
-
 def main():
     print(green("Press the required key. Press A for assistance: "))
     if cli() == "break":
