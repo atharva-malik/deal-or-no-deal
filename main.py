@@ -19,16 +19,11 @@ def add_float_in_descending_order(numbers, new_number):
 def cli():
     while True:
         if keyboard.is_pressed("a"):
-            print("""[A]: Displays this message
-[E]: To quit the app
-[L]ogin/Signup: Allows user login
-[T]utorial: Runs the game in tutorial mode
-[G]uest: To play as guest
-[2] player: Runs game in 2 player mode
-[3] player: Runs game in 3 player mode
-[4] player: Runs game in 3 player mode
-[H]ighscore: Shows the list of high scores
-[S]ettings: Allows user to turn background music on/off""")
+            print("[A]: Displays this message\n[E]: To quit the app\n[L]ogin/Signup: Allows user login\n [M]ultiplayer tutorial: " \
+                  "Gives you a tutorial for multiplayer mode. " + red("You need 2 people for this!\n", "bold") + ""\
+                  "[T]utorial: Runs the game in tutorial mode\n[G]uest: To play as guest\n[2] player: Runs game in 2 player mode" \
+                  "[3] player: Runs game in 3 player mode\n[4] player: Runs game in 3 player mode\n" \
+                  "[H]ighscore: Shows the list of high scores\n[S]ettings: Allows user to turn background music on/off")
             time.sleep(1)
             keyboard.press("backspace")
             break
@@ -54,6 +49,11 @@ def cli():
             print(red("Warning: You are playing in tutorial mode! Your score won't be considered for the highscore! CTRL + C to quit!", "bold"))
             keyboard.press("backspace")
             functions.tutorial()
+            break
+        elif keyboard.is_pressed("m"):
+            print(red("Warning: You are playing in multiplayer mode! Your scores won't be considered for the highscore! CTRL + C to quit!", "bold"))
+            keyboard.press("backspace")
+            functions.mtutorial()
             break
         elif keyboard.is_pressed("2"): # todo add 2 player, 3 player, and 4 player mode
             keyboard.press("backspace")
