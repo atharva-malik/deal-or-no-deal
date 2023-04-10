@@ -1,3 +1,0 @@
-https://pythonbasics.org/python-play-sound/#playsound-module
-https://pypi.org/project/art/
-https://www.youtube.com/watch?v=v_raWlX7tZY
