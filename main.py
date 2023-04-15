@@ -14,8 +14,6 @@ def add_float_in_descending_order(numbers, new_number):
     #* Convert the floats back to strings and return the result
     return [str(n)+"\n" for n in numbers]
 
-
-
 def cli():
     while True:
         if keyboard.is_pressed("a"):
