@@ -70,8 +70,13 @@ def deal_or_no_deal():
     print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
     for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"\nPick", briefcases_to_eliminate, "that you will discard.")
-        number_to_eliminate = int(input("Briefcase to eliminate: "))
-        money = briefcases[str(number_to_eliminate)]
+        while True:
+            try:
+                number_to_eliminate = int(input("Briefcase to eliminate: "))
+                money = briefcases[str(number_to_eliminate)]
+                break
+            except Exception:
+                continue
         print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
         remaining_briefcases.remove(number_to_eliminate)
         remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
@@ -102,8 +107,13 @@ def deal_or_no_deal():
                 return offer
             elif briefcases_to_eliminate == 1:
                 print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                number_to_eliminate = int(input("Briefcase to eliminate: "))
-                money = briefcases[str(number_to_eliminate)]
+                while True:
+                    try:
+                        number_to_eliminate = int(input("Briefcase to eliminate: "))
+                        money = briefcases[str(number_to_eliminate)]
+                        break
+                    except Exception:
+                        continue
                 print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
                 remaining_briefcases.remove(number_to_eliminate)
                 remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
@@ -111,8 +121,13 @@ def deal_or_no_deal():
             else:
                 for i in range(0, briefcases_to_eliminate):
                     print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    number_to_eliminate = int(input("Briefcase to eliminate: "))
-                    money = briefcases[str(number_to_eliminate)]
+                    while True: #TODO: Implement this everywhere
+                        try:
+                            number_to_eliminate = int(input("Briefcase to eliminate: "))
+                            money = briefcases[str(number_to_eliminate)]
+                            break
+                        except Exception:
+                            continue
                     print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
                     remaining_briefcases.remove(number_to_eliminate)
                     remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
@@ -182,8 +197,13 @@ def tutorial():
                 "The money in the briefcases is removed from the prize pool."))
     for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
-        number_to_eliminate = int(input("Briefcase to eliminate: "))
-        money = briefcases[str(number_to_eliminate)]
+        while True: #TODO: Implement this everywhere
+            try:
+                number_to_eliminate = int(input("Briefcase to eliminate: "))
+                money = briefcases[str(number_to_eliminate)]
+                break
+            except Exception:
+                continue
         print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
         remaining_briefcases.remove(number_to_eliminate)
         remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
@@ -216,7 +236,13 @@ def tutorial():
                 break
             elif briefcases_to_eliminate == 1:
                 print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                number_to_eliminate = int(input("Briefcase to eliminate: "))
+                while True: #TODO: Implement this everywhere
+                    try:
+                        number_to_eliminate = int(input("Briefcase to eliminate: "))
+                        money = briefcases[str(number_to_eliminate)]
+                        break
+                    except Exception:
+                        continue
                 money = briefcases[str(number_to_eliminate)]
                 print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
                 remaining_briefcases.remove(number_to_eliminate)
@@ -225,8 +251,13 @@ def tutorial():
             else:
                 for i in range(0, briefcases_to_eliminate):
                     print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    number_to_eliminate = int(input("Briefcase to eliminate: "))
-                    money = briefcases[str(number_to_eliminate)]
+                    while True: #TODO: Implement this everywhere
+                        try:
+                            number_to_eliminate = int(input("Briefcase to eliminate: "))
+                            money = briefcases[str(number_to_eliminate)]
+                            break
+                        except Exception:
+                            continue
                     print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
                     remaining_briefcases.remove(number_to_eliminate)
                     remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
