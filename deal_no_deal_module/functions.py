@@ -289,7 +289,18 @@ def login_or_signup():
 
 
 def mtutorial():
-    pass
+    print(green("This game mode is the same other than the following rules:\nYou take turns, eliminating one briefcase each\n"\
+                "The goal is to be the one with the most money\nAnd, lastly you will be given the option to take the same deal as the player before you\n"\
+                "\nNow let's play a multiplayer round."))
+    while True:
+        try:
+            numberOfPlayers = int(input("Enter a number between 2 and 4: "))
+            if numberOfPlayers < 2 or numberOfPlayers > 4:
+                continue
+            break
+        except Exception:
+            continue
+    multiplayer(numberOfPlayers)
 
 def gameOver(players):
     ret = False
@@ -301,13 +312,11 @@ def gameOver(players):
         ret = True
     return ret
 
-def multiplayer(number):
+
+def multiplayer(numberOfPlayers):
     #* Initialise all the variables
     briefcases = init_briefcases()
-    players = makePlayers(number)
-    offerP1 = 0
-    offerP2 = 0
-    turn = 1
+    players = makePlayers(numberOfPlayers)
     remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                             16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
     remaining_briefcases_for_display = [blue(1, "bold"), blue(2, "bold"), blue(3, "bold"), blue(4, "bold"), blue(5, "bold"), 
@@ -321,111 +330,85 @@ def multiplayer(number):
                                         blue(10000, "bold"), blue(25000, "bold"), blue(50000, "bold"), blue(75000, "bold"), blue(100000, "bold"),
                                         blue(200000, "bold"), blue(300000, "bold"), blue(400000, "bold"), blue(500000, "bold"), 
                                         blue(750000, "bold"), blue(1000000, "bold")]
-    briefcases_to_eliminate = 6
+    briefcases_to_eliminate = 1
 
-    #* Starts the first sequence as you have no choice other than to eliminate 6 briefcases
-    print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
     for player in players:
         print(yellow("Player " + player + "'s turn!", ["bold", "italic"]))
-        for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
-            print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
-            number_to_eliminate = int(input("Briefcase to eliminate: "))
-            money = briefcases[str(number_to_eliminate)]
-            print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-            remaining_briefcases.remove(number_to_eliminate)
-            remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-            remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-            time.sleep(3)
-            os.system("cls")
-        
-        offer = get_offer(briefcases)
-        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
-        choice = input("[D]eal or [N]o Deal? ")
-        if choice.lower() == "d":
-            os.system("cls")
-            #* Stops the game and congratulates the user for accepting it
-            print("Good game Player", player, "! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
-            players[player] = offer
-        elif choice.lower() == "n":
-            os.system("cls")
-        
-        #region  Should not be needed as the next part does it
-        """
-            #* Checks how many briefcases are left and runs the correct version
-            if len(remaining_briefcases) == 1:
-                print("You have one briefcase left. You must take it.")
-                offer = briefcases.pop(str(remaining_briefcases[0]))
-                print("You won $", offer, "!")
-                return offer
-            elif briefcases_to_eliminate == 1:
-                print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
+        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
+        while True: #TODO: Implement this everywhere
+            try:
                 number_to_eliminate = int(input("Briefcase to eliminate: "))
                 money = briefcases[str(number_to_eliminate)]
-                print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-                remaining_briefcases.remove(number_to_eliminate)
-                remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-                remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-            else:
-                for i in range(0, briefcases_to_eliminate):
-                    print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    number_to_eliminate = int(input("Briefcase to eliminate: "))
-                    money = briefcases[str(number_to_eliminate)]
-                    print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-                    remaining_briefcases.remove(number_to_eliminate)
-                    remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-                    remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-                    time.sleep(3)
-                    os.system("cls")
-                briefcases_to_eliminate -= 1
-        else:
-            #* If the input is incorrect, the loop restarts
-            continue
-        briefcases_to_eliminate -= 1
-        offer = get_offer(briefcases)
-        """
-        #endregion
-    #* Starts the loop that allows the user to choose [D]eal or [N]o Deal
+                break
+            except Exception:
+                continue
+        print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
+        remaining_briefcases.remove(number_to_eliminate)
+        remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
+        remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
+        time.sleep(3)
+        os.system("cls")
+
     while briefcases_to_eliminate >= 1:
+        #* Check to see if the game is over
+        if gameOver(players):
+            print(cyan("Good game players!. At the end the winner is: ", "bold"))
+            print(cyan(dict(sorted(players.items(), key=lambda x:x[1], reverse=True)), "bold"))
+            break
         for player in players:
-            print(yellow("Player " + player + "'s turn!", ["bold", "italic"]))
-            time.sleep(2)
-            #* Allows the user to view the offer and choose to take it
-            if choice.lower() == "d":
-                os.system("cls")
-                #* Stops the game and congratulates the user for accepting it
-                print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
-                return offer
-            elif choice.lower() == "n":
-                os.system("cls")
-                #* Checks how many briefcases are left and runs the correct version
-                if len(remaining_briefcases) == 1:
-                    print("You have one briefcase left. You must take it.")
-                    offer = briefcases.pop(str(remaining_briefcases[0]))
-                    print("You won $", offer, "!")
-                    return offer
-                elif briefcases_to_eliminate == 1:
-                    print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    number_to_eliminate = int(input("Briefcase to eliminate: "))
-                    money = briefcases[str(number_to_eliminate)]
-                    print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-                    remaining_briefcases.remove(number_to_eliminate)
-                    remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-                    remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-                else:
-                    for i in range(0, briefcases_to_eliminate):
+            #* Check to see if the player has won some money
+            if players[player] == 0:
+                print(yellow("Player " + player + "'s turn!", ["bold", "italic"]))
+                offer = get_offer(briefcases)
+                print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
+                choice = input("[D]eal or [N]o Deal? ")
+                #* Allows the user to view the offer and choose to take it
+                if choice.lower() == "d":
+                    os.system("cls")
+                    #* Stops the game and congratulates the user for accepting it
+                    print("Good game Player", player, "! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
+                    choice = "n"
+                    numberOfPlayers -= 1
+                    players[player] = offer
+                elif choice.lower() == "n":
+                    os.system("cls")
+                    #* Checks how many briefcases are left and runs the correct version
+                    if len(remaining_briefcases) == 1:
+                        print("You have one briefcase left. You must take it.")
+                        offer = briefcases.pop(str(remaining_briefcases[0]))
+                        print("You won $", offer, "!")
+                        players[player] = offer
+                        choice = "go" #TODO: Add a game over event
+                    elif briefcases_to_eliminate == 1:
                         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                        number_to_eliminate = int(input("Briefcase to eliminate: "))
-                        money = briefcases[str(number_to_eliminate)]
+                        while True:
+                            try:
+                                number_to_eliminate = int(input("Briefcase to eliminate: "))
+                                money = briefcases[str(number_to_eliminate)]
+                                break
+                            except Exception:
+                                continue
                         print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
                         remaining_briefcases.remove(number_to_eliminate)
                         remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
                         remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-                        time.sleep(3)
-                        os.system("cls")
-                    briefcases_to_eliminate -= 1
-            else:
-                #* If the input is incorrect, the loop restarts
-                continue
-            offer = get_offer(briefcases)
-            print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
-            choice = input("[D]eal or [N]o Deal? ")
+                    else:
+                        for i in range(0, briefcases_to_eliminate):
+                            print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
+                            while True:
+                                try:
+                                    number_to_eliminate = int(input("Briefcase to eliminate: "))
+                                    money = briefcases[str(number_to_eliminate)]
+                                    break
+                                except Exception:
+                                    continue
+                            print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
+                            remaining_briefcases.remove(number_to_eliminate)
+                            remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
+                            remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
+                            time.sleep(3)
+                            os.system("cls")
+                        briefcases_to_eliminate -= 1
+                else:
+                    #* If the input is incorrect, the loop restarts
+                    continue

@@ -17,7 +17,7 @@ def add_float_in_descending_order(numbers, new_number):
 def cli():
     while True:
         if keyboard.is_pressed("a"):
-            print("[A]: Displays this message\n[E]: To quit the app\n[L]ogin/Signup: Allows user login\n [M]ultiplayer tutorial: " \
+            print("[A]: Displays this message\n[E]: To quit the app\n[L]ogin/Signup: Allows user login\n[M]ultiplayer tutorial: " \
                   "Gives you a tutorial for multiplayer mode. " + red("You need 2 people for this!\n", "bold") + ""\
                   "[T]utorial: Runs the game in tutorial mode\n[G]uest: To play as guest\n[2] player: Runs game in 2 player mode" \
                   "[3] player: Runs game in 3 player mode\n[4] player: Runs game in 3 player mode\n" \
@@ -30,7 +30,7 @@ def cli():
             time.sleep(0.5)
             username = functions.login_or_signup()
             print(green(str("Welcome, " + username + "! Nice to see you back!"), "bold"))
-            score = functions.deal_or_no_deal() #todo Store this for pb!
+            score = functions.deal_or_no_deal()
             num1 = 0
             with open("high.scores", "r") as f:
                 scores = f.readlines()
