@@ -53,7 +53,7 @@ def cli():
             keyboard.press("backspace")
             functions.mtutorial()
             break
-        elif keyboard.is_pressed("2"): # todo add 2 player, 3 player, and 4 player mode
+        elif keyboard.is_pressed("2"):
             print(red("Warning: You are playing in multiplayer mode! Your scores won't be considered for the highscore! CTRL + C to quit!", "bold"))
             keyboard.press("backspace")
             functions.multiplayer(2)

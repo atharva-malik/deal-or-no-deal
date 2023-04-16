@@ -33,7 +33,12 @@ def stop_background_music():
 
 
 def get_offer(briefcases):
-    offer = sum(briefcases.values()) / len(briefcases) #TODO: Try to make this more exciting
+    #* This is how they calculate the offer in deal or no deal: sqrt(sum of all briefcases^2 / number of briefcases)
+    sumSqr = 0
+    for i in briefcases.values():
+        sumSqr += i**2
+    offer = sumSqr / len(briefcases)
+    offer = offer**0.5
     offer = round(offer, 2)
     return offer
 
@@ -121,7 +126,7 @@ def deal_or_no_deal():
             else:
                 for i in range(0, briefcases_to_eliminate):
                     print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    while True: #TODO: Implement this everywhere
+                    while True:
                         try:
                             number_to_eliminate = int(input("Briefcase to eliminate: "))
                             money = briefcases[str(number_to_eliminate)]
@@ -197,7 +202,7 @@ def tutorial():
                 "The money in the briefcases is removed from the prize pool."))
     for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
-        while True: #TODO: Implement this everywhere
+        while True:
             try:
                 number_to_eliminate = int(input("Briefcase to eliminate: "))
                 money = briefcases[str(number_to_eliminate)]
@@ -236,7 +241,7 @@ def tutorial():
                 break
             elif briefcases_to_eliminate == 1:
                 print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                while True: #TODO: Implement this everywhere
+                while True:
                     try:
                         number_to_eliminate = int(input("Briefcase to eliminate: "))
                         money = briefcases[str(number_to_eliminate)]
@@ -251,7 +256,7 @@ def tutorial():
             else:
                 for i in range(0, briefcases_to_eliminate):
                     print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    while True: #TODO: Implement this everywhere
+                    while True:
                         try:
                             number_to_eliminate = int(input("Briefcase to eliminate: "))
                             money = briefcases[str(number_to_eliminate)]
@@ -366,7 +371,7 @@ def multiplayer(numberOfPlayers):
     for player in players:
         print(yellow("Player " + player + "'s turn!", ["bold", "italic"]))
         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
-        while True: #TODO: Implement this everywhere
+        while True:
             try:
                 number_to_eliminate = int(input("Briefcase to eliminate: "))
                 money = briefcases[str(number_to_eliminate)]
@@ -412,6 +417,7 @@ def multiplayer(numberOfPlayers):
                         if not gameOver(players):
                             print(cyan("Good game players!. At the end the winner is: ", "bold"))
                             print(cyan(dict(sorted(players.items(), key=lambda x:x[1], reverse=True)), "bold"))
+                            break
                     elif briefcases_to_eliminate == 1:
                         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
                         while True:
