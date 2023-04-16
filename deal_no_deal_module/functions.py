@@ -409,7 +409,9 @@ def multiplayer(numberOfPlayers):
                         offer = briefcases.pop(str(remaining_briefcases[0]))
                         print("You won $", offer, "!")
                         players[player] = offer
-                        choice = "go" #TODO: Add a game over event
+                        if not gameOver(players):
+                            print(cyan("Good game players!. At the end the winner is: ", "bold"))
+                            print(cyan(dict(sorted(players.items(), key=lambda x:x[1], reverse=True)), "bold"))
                     elif briefcases_to_eliminate == 1:
                         print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
                         while True:
