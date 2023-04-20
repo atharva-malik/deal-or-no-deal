@@ -40,7 +40,7 @@ def store_password(encrypted_password, key, username):
     with open("users.json", "r") as f:
         # Load the contents of the file into a dictionary
         passwords = json.loads(f.read())
-    passwords[username] = (encrypted_password.decode('utf-8'), key.decode('utf-8'), 0)
+    passwords[username] = (encrypted_password.decode('utf-8'), key.decode('utf-8'))
     with open("users.json", "w") as f:
         # Dump the contents of the dictionary into the file
         json.dump(passwords, f)

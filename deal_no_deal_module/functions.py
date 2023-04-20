@@ -1,5 +1,4 @@
 import random, time, getpass, os, json, keyboard
-from playsound import playsound
 from simple_colors import *
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 from pygame import mixer
@@ -7,7 +6,7 @@ from deal_no_deal_module.passwords_module import password_management
 
 
 mixer.init()
-audio_file = os.path.dirname(__file__).replace("deal_no_deal_module", "") + '\\lofi.mp3'
+audio_file = os.path.dirname(__file__) + '\\background.mp3'
 mixer.music.load(audio_file)
 
 def list_to_string(list):
