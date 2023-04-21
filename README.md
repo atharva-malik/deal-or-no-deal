@@ -39,7 +39,12 @@ The keyboard module is very dangerous and therefore I recommend that you do not 
 
 ## Development
 
-Want to contribute? Great! Pull requests and issues are welcome! [Here] is an excellent guide on how to create pull requests and forks to request changes.
+
+Want to contribute? Great! Pull requests and issues are welcome! [Here] is an excellent guide on how to create pull requests and forks to request changes. I suggest using the addon "Better Comments" on Visual Studio Code as it makes the comments more readable. If you can not use the addon, I have used the following tags to make the comments more readable:
+
+- #todo: This is a todo
+- #*: This explains the code
+- #!: This is a warning
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job.)
 

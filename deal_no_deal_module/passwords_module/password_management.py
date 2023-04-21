@@ -115,12 +115,6 @@ def passwords123(username):
     else:
         print("Wrong input please try again!\n")
 
-
-# with open("key.bin", "rb") as f:
-#    key = f.read()
-
-
-# Load the users from the file, if it exists
 try:
     with open("users.json", "r") as f:
         users = json.load(f)
@@ -169,50 +163,3 @@ def authenticate_user_secret(username, secret):
         return True
     else:
         return False
-
-
-if __name__ == "__main__":
-    while True:
-        a = input("[L]ogin\n[C]reate account\n[D]elete account\n[Ch]ange details\n[E]xit\n")
-        if a.lower() == "c":
-            username = input("Enter username: ")
-            if username+"storedPasses.json" in listdir():
-                print("User already exists!")
-                continue
-            add_user(username, input("Enter password: "), input("Enter secret(DO NOT LOSE THIS! CAN "
-                                                                                 "BE USED TO CHANGE PASSWORD!): "))
-        elif a.lower() == "l":
-            a = input("Username: ")
-            if authenticate_user(a, input("Password: ")):
-                passwords = initial_retrieve_password(a)
-                while True:
-                    passwords123(a)
-            else:
-                print("Invalid Credentials!")
-        elif a.lower() == "d":
-            a = input("Enter username: ")
-            if authenticate_user(a, input("Enter password: ")):
-                delete_user(a)
-        elif a.lower() == "ch":
-            a = input("What do you want to change?\n[P]assword\n[S]ecret\n").lower()
-            if a == "p":
-                s = input("Username: ")
-                if authenticate_user_secret(s, input("Secret: ")):
-                    update_password(s, input("Enter new password: "))
-                else:
-                    print(get_user_info(a))
-                    print("Invalid Details!")
-            elif a == "s":
-                s = input("Username: ")
-                if authenticate_user_secret(s, input("Password: ")):
-                    update_secret(s, input("Enter new secret: "))
-                else:
-                    print("Invalid Details!")
-            else:
-                print("Invalid choice!")
-                continue
-        elif a.lower() == "e":
-            exit()
-        else:
-            print("Invalid input!")
-            continue

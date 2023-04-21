@@ -1,8 +1,8 @@
 from deal_no_deal_module import functions
 from simple_colors import * #! pip install simple_colors
-import time, os, keyboard
+import time, os, keyboard #! pip install keyboard
 
-
+#* Used for the highscores
 def add_float_in_descending_order(numbers, new_number):
     #* Convert the strings to floats, and add the new float
     numbers = [float(n) for n in numbers] + [new_number]
@@ -15,6 +15,8 @@ def add_float_in_descending_order(numbers, new_number):
     return [str(n)+"\n" for n in numbers]
 
 def cli():
+    #* This is the command line interface
+    #* It works by checking if a key is pressed, and if it is, it runs the corresponding function
     while True:
         if keyboard.is_pressed("a"):
             print("[A]: Displays this message\n[E]: To quit the app\n[L]ogin/Signup: Allows user login\n[M]ultiplayer tutorial: " \
@@ -96,7 +98,7 @@ def main():
 if __name__ == "__main__":
     output = ""
     while True:
-        if functions.check_setting() == "no_music": #This means no music
+        if functions.check_setting() == "no_music": #* This means no music
             functions.stop_background_music()
         elif functions.check_setting() == "music":
             functions.play_background_music()
