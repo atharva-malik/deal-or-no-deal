@@ -433,6 +433,7 @@ def multiplayer(numberOfPlayers):
         for player in players:
             #* Check to see if the player has won some money
             if players[player] == 0:
+                os.system("cls")
                 print(yellow("Player " + player + "'s turn!", ["bold", "italic"]))
                 offer = get_offer(briefcases)
                 print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")

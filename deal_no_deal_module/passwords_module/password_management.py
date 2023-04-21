@@ -61,7 +61,7 @@ def retrieve_password(tag):
     # Retrieve the encrypted password and key for the specified tag
     with open("users.json", "r") as f:
         passwords = json.loads(f.read())
-    encrypted_password, key, pb = passwords[tag]
+    encrypted_password, key = passwords[tag]
     key = key.encode('utf-8')
     encrypted_password = encrypted_password.encode('utf-8')
     # Decrypt the password using the key
