@@ -83,9 +83,9 @@ def deal_or_no_deal():
     #* as your first move
     print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
     for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
-        #* This part prints the briefcases left and the amounts of money left to allow strategic decision making TODO:
-        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"\nPick", briefcases_to_eliminate, "that you will discard.")
-        #* This section ensures that the user picks a valid briefcases TODO:
+        #* This part prints the briefcases left and the amounts of money left to allow strategic decision making
+        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display),"\nPick", briefcases_to_eliminate, "that you will discard.")
+        #* This section ensures that the user picks a valid briefcases
         while True:
             try:
                 number_to_eliminate = int(input("Briefcase to eliminate: "))
@@ -107,7 +107,7 @@ def deal_or_no_deal():
     while briefcases_to_eliminate >= 1:
         #* Allows the user to view the offer and make a strategic decision
         offer = get_offer(briefcases)
-        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
+        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
         choice = input("[D]eal or [N]o Deal? ")
         if choice.lower() == "d":
             os.system("cls")
@@ -224,7 +224,7 @@ def tutorial():
                 "The money in the briefcases is removed from the prize pool."))
     for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
         #* This part prints the briefcases left and the amounts of money left to allow strategic decision making
-        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
+        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
         #* This section ensures that the user picks a valid briefcases
         while True:
             try:
@@ -249,7 +249,7 @@ def tutorial():
     while briefcases_to_eliminate >= 1:
         #* Allows the user to view the offer and make a strategic decision
         offer = get_offer(briefcases)
-        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
+        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
         choice = input("[D]eal or [N]o Deal? ")
         if choice.lower() == "d":
             os.system("cls")
@@ -407,7 +407,7 @@ def multiplayer(numberOfPlayers):
     #* Makes both player eliminate one briefcases each
     for player in players:
         print(yellow("Player " + player + "'s turn!", ["bold", "italic"])) #* Tells the user which player's turn it is
-        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money is", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
+        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display),"Pick", briefcases_to_eliminate, "that you will discard.")
         #* Checks to see if the user has entered a valid number
         while True:
             try:
@@ -436,7 +436,7 @@ def multiplayer(numberOfPlayers):
                 os.system("cls")
                 print(yellow("Player " + player + "'s turn!", ["bold", "italic"]))
                 offer = get_offer(briefcases)
-                print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money:", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
+                print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
                 choice = input("[D]eal or [N]o Deal? ")
                 #* Allows the user to view the offer and choose to take it
                 if choice.lower() == "d":
