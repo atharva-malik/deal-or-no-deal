@@ -1,0 +1,47 @@
+body{
+    margin:10px;
+    vertical-align:center;
+}
+
+label {
+    text-align: center;
+}
+
+.form-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.the_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
