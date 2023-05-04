@@ -2,7 +2,7 @@
 import random
 import string
 import json
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet #! pip install cryptography
 from os import listdir
 
 

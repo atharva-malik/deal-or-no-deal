@@ -2,11 +2,15 @@
 <html>
   <head>
     <title>Deal or No Deal</title>
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
   </head>
   <body>
     <h1>Deal or No Deal</h1>
     <ul>
-      <li><a href="/login">Login/Signup</a></li>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
       <li><a href="/tutorial">Tutorial</a></li>
       <li><a href="/multiplayer-tutorial">Multiplayer Tutorial</a></li>
       <li><a href="/game">Guest</a></li>

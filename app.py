@@ -1,13 +1,11 @@
-from flask import Flask, render_template
-from deal_no_deal_module import functions
-from simple_colors import *  # ! pip install simple_colors
-import os, keyboard  # ! pip install keyboard
+from flask import Flask, render_template # ! pip install flask
+import os
 # * FUNCTIONS IMPORTS
-import random, time, getpass, os, json, keyboard #! pip install keyboard
-from simple_colors import * #! pip install simple_colors
+#import random, time, getpass, os, json
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1' #* This is to hide the pygame welcome message
 from pygame import mixer #! pip install pygame
-from deal_no_deal_module.passwords_module import password_management
+from passwords_module import password_management
+import datetime
 
 app = Flask(__name__)
 
@@ -17,7 +15,7 @@ mixer.init() #* This is to initialise the mixer
 audio_file = os.path.dirname(__file__) + '\\background.mp3'
 mixer.music.load(audio_file) #* This is to load the background music and prepare to play/stop it
 
-def list_to_string(list):
+def f_list_to_string(list):
     #* This function converts a list to a string. It is used with the remaining briefcases
     #* It works by adding each element of the list to a string and adding a space after each element
     string = ""
@@ -26,7 +24,7 @@ def list_to_string(list):
     return string
 
 
-def makePlayers(number):
+def f_makePlayers(number):
     #* This function makes a dictionary with the keys being the player numbers and the values being the player's money
     players = {}
     for i in range(1, number+1):
@@ -34,17 +32,17 @@ def makePlayers(number):
     return players
 
 
-def play_background_music():
+def f_play_background_music():
     #* This functions simply starts the song and sets the number of repeats to infinite
     mixer.music.play(loops=-1)
 
 
-def stop_background_music():
+def f_stop_background_music():
     #* This function simply stops the song
     mixer.music.stop()
 
 
-def get_offer(briefcases):
+def f_get_offer(briefcases):
     #* The offer in the Deal or No Deal show is calculated using this formula:
     #* sqrt(sum of all briefcases^2 / number of briefcases)
     #* This function uses the same formula to calculate the offer
@@ -57,7 +55,7 @@ def get_offer(briefcases):
     return offer
 
 
-def init_briefcases():
+def f_init_briefcases():
     #* This function initialises the briefcases with random amounts of money using the random module
     briefcases = {}
     amount = [0.1, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000,
@@ -67,7 +65,7 @@ def init_briefcases():
     return briefcases
 
 
-def deal_or_no_deal():
+def f_deal_or_no_deal():
     #* This is the main function!
     #* Initialise all the variables
     briefcases = init_briefcases()
@@ -169,7 +167,7 @@ def deal_or_no_deal():
             continue
 
 
-def change_setting():
+def f_change_setting():
     #* Changes the setting of the game
     setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
     settings = []
@@ -192,7 +190,7 @@ def change_setting():
         return "music"
 
 
-def check_setting():
+def f_check_setting():
     #* Checks the settings of the game
     #* This is used to check whether to play music or not
     setting_path = os.path.dirname(__file__).replace("\\deal_no_deal_module", "") + "\\deal_no_deal.settings"
@@ -206,7 +204,7 @@ def check_setting():
         return "no_music"
 
 
-def tutorial():
+def f_tutorial():
     #* Initialise all the variables
     briefcases = init_briefcases()
     offer = 0
@@ -311,7 +309,7 @@ def tutorial():
             continue
 
 
-def login():
+def f_login():
     #* This function allows the user to login
     while True: #* This loop ensures that the user enters a valid username
         username = input("Username: ")
@@ -334,7 +332,7 @@ def login():
                 os.system("cls")
 
 
-def signup():
+def f_signup():
     #* This function allows the user to create an account
     username = input("Username: ")
     if username in json.load(open("users.json", "r")): #* This checks if the username already exists
@@ -346,7 +344,7 @@ def signup():
     print(green("Account created!", "bold"))
 
 
-def login_or_signup():
+def f_login_or_signup():
     #* This function allows the user to login or signup
     print("Press L to login or S to signup")
     while True:
@@ -363,7 +361,7 @@ def login_or_signup():
     return username
 
 
-def mtutorial():
+def f_mtutorial():
     #* This function is the tutorial for the multiplayer mode
     print(green("This game mode is the same other than the following rules:\nYou take turns, eliminating one briefcase each\n"\
                 "The goal is to be the one with the most money\nAnd, lastly you will be given the option to take the same deal as the player before you\n"\
@@ -380,7 +378,7 @@ def mtutorial():
     multiplayer(numberOfPlayers)
 
 
-def gameOver(players):
+def f_gameOver(players):
     #* This function checks if the game is over
     ret = False
     won = 0
@@ -392,7 +390,7 @@ def gameOver(players):
     return ret
 
 
-def multiplayer(numberOfPlayers):
+def f_multiplayer(numberOfPlayers):
     #* This is the main function for the multiplayer mode and works slightly differently to the single player mode
     #* Initialise all the variables
     briefcases = init_briefcases()
@@ -483,10 +481,11 @@ def multiplayer(numberOfPlayers):
                 else:
                     #* If the input is incorrect, the loop restarts
                     continue
+#* FUNCTIONS END HERE
 
 
 # * Used for the highscores
-def add_float_in_descending_order(numbers, new_number):
+def f_add_float_in_descending_order(numbers, new_number):
     # * Convert the strings to floats, and add the new float
     numbers = [float(n) for n in numbers] + [new_number]
     # * Sort the list in descending order
@@ -505,12 +504,110 @@ def home():
 
 @app.route("/login")
 def login():
-    username = functions.login_or_signup()
+    username = f_login()
     return render_template("login.html", username=username)
+
+
+@app.route("/signup")
+def signup():
+    username = f_signup()
+    return render_template("signup.html", username=username)
 
 
 @app.route("/game")
 def game():
+    """
+    #* This is the main function!
+    #* Initialise all the variables
+    briefcases = f_init_briefcases()
+    offer = 0
+    remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                            16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    remaining_briefcases_for_display = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    remaining_money_for_display = [0.1, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000]
+    briefcases_to_eliminate = 6
+
+    #* Starts the first sequence as you have no choice other than to eliminate 6 briefcases
+    #* as your first move
+    print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
+    for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
+        #* This part prints the briefcases left and the amounts of money left to allow strategic decision making
+        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display),"\nPick", briefcases_to_eliminate, "that you will discard.")
+        #* This section ensures that the user picks a valid briefcases
+        while True:
+            try:
+                number_to_eliminate = int(input("Briefcase to eliminate: "))
+                money = briefcases[str(number_to_eliminate)]
+                break
+            except Exception:
+                continue
+        print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
+        #* Removes the briefcase that the user has eliminated from the list of briefcases and changes the color of the briefcase and money to black
+        remaining_briefcases.remove(number_to_eliminate)
+        remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
+        remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
+        time.sleep(3)
+        os.system("cls") #* Clears the screen to make it look cleaner
+    briefcases_to_eliminate -= 1
+    offer = get_offer(briefcases)
+    
+    #* Starts the loop that allows the user to choose [D]eal or [N]o Deal
+    while briefcases_to_eliminate >= 1:
+        #* Allows the user to view the offer and make a strategic decision
+        offer = get_offer(briefcases)
+        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
+        choice = input("[D]eal or [N]o Deal? ")
+        if choice.lower() == "d":
+            os.system("cls")
+            #* Stops the game and congratulates the user for accepting the offer
+            print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
+            return offer
+        elif choice.lower() == "n":
+            os.system("cls")
+            #* If there is only one briefcase, the user must take it
+            if len(remaining_briefcases) == 1:
+                print("You have one briefcase left. You must take it.")
+                offer = briefcases.pop(str(remaining_briefcases[0]))
+                print("You won $", offer, "!")
+                return offer
+            #* If he has to eliminate only one briefcase, no point in running the for loop
+            elif briefcases_to_eliminate == 1:
+                #* The internal logic stays the same as the first for loop
+                print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
+                while True:
+                    try:
+                        number_to_eliminate = int(input("Briefcase to eliminate: "))
+                        money = briefcases[str(number_to_eliminate)]
+                        break
+                    except Exception:
+                        continue
+                print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
+                remaining_briefcases.remove(number_to_eliminate)
+                remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
+                remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
+            #* Otherwise there are more than one briefcases to eliminate and the for loop runs
+            else:
+                #* The internal logic stays the same as the first for loop
+                for i in range(0, briefcases_to_eliminate):
+                    print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
+                    while True:
+                        try:
+                            number_to_eliminate = int(input("Briefcase to eliminate: "))
+                            money = briefcases[str(number_to_eliminate)]
+                            break
+                        except Exception:
+                            continue
+                    print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
+                    remaining_briefcases.remove(number_to_eliminate)
+                    remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
+                    remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
+                    time.sleep(3)
+                    os.system("cls")
+                briefcases_to_eliminate -= 1
+        else:
+            #* If the input is incorrect, the loop restarts
+            continue
+    """
     return render_template("game.html")
 
 
@@ -533,9 +630,9 @@ def multiplayer(players):
 def highscores():
     with open("high.scores", "r") as f:
         scores = f.readlines()
-    highscores = ""
+    highscores = []
     for score in scores:
-        highscores += magenta(score)
+        highscores.append("$"+score)
     return render_template("highscores.html", highscores=highscores)
 
 

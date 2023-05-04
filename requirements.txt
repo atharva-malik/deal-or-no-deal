@@ -1,3 +1,5 @@
 simple_colors
 keyboard
+flask
+cryptography
 pygame
