@@ -19,12 +19,37 @@
         }
         return dictionary;
       }
+      function getOffer(dict){
+        var dict_len = Object.keys(dict).length;
+        var sumSqr = 0;
+        var offer = 0;
+        var number = 0
+        for (let i = 1; i <= dict_len; i++){
+          number = dict[i]
+          sumSqr += number**2;
+        }
+        offer = sumSqr/dict_len;
+        offer = offer**0.5;
+        offer = offer.toFixed(2);
+        return offer;
+      }
+      // All the variables
       var briefcases = generateDictionary();
+      var numToEliminate = 6
+      var eliminated = 0
       function main(num) {
         num = num.toString();
         document.getElementById(num).innerHTML = briefcases[num.toString()];
         document.getElementById(num).disabled = true;
         delete briefcases[num];
+        eliminated = eliminated+1;
+        if (eliminated == numToEliminate) {
+          eliminated = 0
+          if (numToEliminate > 1){
+            numToEliminate--;
+          }
+          alert(getOffer(briefcases))
+        }
       }
     </script>
     <h1>Deal or No Deal</h1>
