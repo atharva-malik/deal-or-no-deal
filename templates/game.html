@@ -37,6 +37,26 @@
       var briefcases = generateDictionary();
       var numToEliminate = 6
       var eliminated = 0
+      var offer = 0
+      document.getElementById("offer2").style.display = "none";
+      document.getElementById("offer3").style.display = "none";
+      document.getElementById("offer").style.display = "none";
+      function hideElement(offer) {
+        var x = document.getElementById("offer2");
+        var y = document.getElementById("offer");
+        var z = document.getElementById("offer3");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+          y.style.display = "block";
+          z.style.display = "block";
+          x.innerHTML = "Do you accept the offer of $"+offer.toString();
+        }
+        else {
+          x.style.display = "none";
+          y.style.display = "none";
+          z.style.display = "none";
+        }
+      }
       function main(num) {
         num = num.toString();
         document.getElementById(num).innerHTML = briefcases[num.toString()];
@@ -48,8 +68,12 @@
           if (numToEliminate > 1){
             numToEliminate--;
           }
-          alert(getOffer(briefcases))
+          offer = getOffer(briefcases)
+          hideElement(offer)
         }
+      }
+      function offer(){
+        hideElement("offer")
       }
     </script>
     <h1>Deal or No Deal</h1>
@@ -58,7 +82,9 @@
     {%endfor%}
     <br/>
     <br/>
-    <button onclick="accept()" class="btn btn-primary">
+    <p id="offer2" style="display: none">Do you accept an offer of $</p>
+    <p id="offer3" style="display: none">Press any other button to continue</p>
+    <button onclick="accept()" class="btn btn-primary" id="offer" style="display: none">Yes</button>
     <br/>
     <a href="/">Home</a>
     <br/>
