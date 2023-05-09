@@ -34,7 +34,9 @@
         return offer;
       }
       function checkElement(){
-        if
+        if (document.getElementById("offer2").style.display == "none"){
+          return true
+        }
       }
       // All the variables
       var briefcases = generateDictionary();
@@ -48,7 +50,7 @@
         var x = document.getElementById("offer2");
         var y = document.getElementById("offer");
         var z = document.getElementById("offer3");
-        if (x.style.display === "none") {
+        if (x.style.display == "none") {
           x.style.display = "block";
           y.style.display = "block";
           z.style.display = "block";
@@ -61,6 +63,9 @@
         }
       }
       function main(num) {
+        if (!checkElement()){
+          hideElement();
+        }
         num = num.toString();
         document.getElementById(num).innerHTML = briefcases[num.toString()];
         document.getElementById(num).disabled = true;
