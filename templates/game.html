@@ -24,8 +24,9 @@
         var sumSqr = 0;
         var offer = 0;
         var number = 0
-        for (let i = 1; i <= dict_len; i++){
-          number = dict[i]
+        var keys = Object.keys(dict)
+        for (let i = 0; i < dict_len; i++){
+          number = dict[keys[i]]
           sumSqr += number**2;
         }
         offer = sumSqr/dict_len;
