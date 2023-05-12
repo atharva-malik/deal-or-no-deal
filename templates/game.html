@@ -44,6 +44,8 @@
       var numToEliminate = 6;
       var eliminated = 0;
       var offer = 0;
+      var brefSelected = false;
+      var selectedBriefcase = {};
       document.getElementById("offer2").style.display = "none";
       document.getElementById("offer3").style.display = "none";
       document.getElementById("offer").style.display = "none";
@@ -64,10 +66,27 @@
         }
       }
       function main(num) {
+        offer = getOffer(briefcases)
+        num = num.toString();
+        if (!brefSelected){
+          brefSelected = true;
+          selectedBriefcase[num] = briefcases[num];
+          document.getElementById(num).classList.add('MyClass');
+          document.getElementById(num).classList.remove('btn');
+          document.getElementById(num).classList.remove('btn-primary');
+          //document.getElementById("MyElement").classList.remove('MyClass');
+          document.getElementById(num).classList.add('btn');
+          document.getElementById(num).classList.add('btn-secondary');
+          alert(selectedBriefcase[num])
+          delete briefcases[num];
+          return ""
+        }
+        if (num == Object.keys(selectedBriefcase)[0]){
+          accept()
+        }
         if (!checkElement()){
           hideElement();
         }
-        num = num.toString();
         document.getElementById(num).innerHTML = "$" + briefcases[num.toString()];
         document.getElementById(num).disabled = true;
         delete briefcases[num];
@@ -79,14 +98,23 @@
           if (numToEliminate > 1){
             numToEliminate--;
           }
-          offer = getOffer(briefcases)
           hideElement(offer)
         }
         if (lenBref == 1){
           document.getElementById(brefIndex).innerHTML = "$" + briefcases[brefIndex];
           document.getElementById(brefIndex).disabled = true;
-          accept()
+          accept();
         }
+      }
+      function accept(){
+        alert("WORK NEEDED");
+        var x = document.getElementById("offer2"); // Do you accept an offer of $
+        var y = document.getElementById("offer"); // Button
+        var z = document.getElementById("offer3"); // Press any other button to continue
+        hideElement();
+        x.innerHTML = "You accepted the offer of $" + offer.toString();
+        y.style.display = "none";
+        z.style.display = "none";
       }
       function offer(){
         hideElement("offer")
