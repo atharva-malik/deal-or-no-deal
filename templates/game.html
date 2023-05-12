@@ -23,10 +23,10 @@
         var dict_len = Object.keys(dict).length;
         var sumSqr = 0;
         var offer = 0;
-        var number = 0
-        var keys = Object.keys(dict)
+        var number = 0;
+        var keys = Object.keys(dict);
         for (let i = 0; i < dict_len; i++){
-          number = dict[keys[i]]
+          number = dict[keys[i]];
           sumSqr += number**2;
         }
         offer = sumSqr/dict_len;
@@ -36,14 +36,14 @@
       }
       function checkElement(){
         if (document.getElementById("offer2").style.display == "none"){
-          return true
+          return true;
         }
       }
       // All the variables
       var briefcases = generateDictionary();
-      var numToEliminate = 6
-      var eliminated = 0
-      var offer = 0
+      var numToEliminate = 6;
+      var eliminated = 0;
+      var offer = 0;
       document.getElementById("offer2").style.display = "none";
       document.getElementById("offer3").style.display = "none";
       document.getElementById("offer").style.display = "none";
@@ -68,9 +68,11 @@
           hideElement();
         }
         num = num.toString();
-        document.getElementById(num).innerHTML = briefcases[num.toString()];
+        document.getElementById(num).innerHTML = "$" + briefcases[num.toString()];
         document.getElementById(num).disabled = true;
         delete briefcases[num];
+        var lenBref = Object.keys(briefcases).length;
+        var brefIndex = Object.keys(briefcases)[0];
         eliminated = eliminated+1;
         if (eliminated == numToEliminate) {
           eliminated = 0
@@ -79,6 +81,10 @@
           }
           offer = getOffer(briefcases)
           hideElement(offer)
+        }
+        if (lenBref == 1){
+          document.getElementById(brefIndex).innerHTML = "$" + briefcases[brefIndex];
+          document.getElementById(brefIndex).disabled = true;
         }
       }
       function offer(){
