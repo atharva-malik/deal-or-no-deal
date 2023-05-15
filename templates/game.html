@@ -45,6 +45,7 @@
       var eliminated = 0;
       var offer = 0;
       var brefSelected = false;
+      var brefNum = 0;
       var selectedBriefcase = {};
       document.getElementById("offer2").style.display = "none";
       document.getElementById("offer3").style.display = "none";
@@ -70,6 +71,7 @@
         num = num.toString();
         if (!brefSelected){
           brefSelected = true;
+          brefNum = num;
           selectedBriefcase[num] = briefcases[num];
           document.getElementById(num).classList.add('MyClass');
           document.getElementById(num).classList.remove('btn');
@@ -77,12 +79,19 @@
           //document.getElementById("MyElement").classList.remove('MyClass');
           document.getElementById(num).classList.add('btn');
           document.getElementById(num).classList.add('btn-secondary');
+          document.getElementById(num).disabled = true;
           alert(selectedBriefcase[num])
           delete briefcases[num];
           return ""
         }
         if (num == Object.keys(selectedBriefcase)[0]){
-          accept()
+          document.getElementById(num).innerHTML = "$" + selectedBriefcase[num];
+          document.getElementById(num).disabled = true;
+          document.getElementById(Object.keys(briefcases)[0]).innerHTML = "$" + briefcases[Object.keys(briefcases)[0]];
+          document.getElementById(Object.keys(briefcases)[0]).disabled = true;
+
+          acceptY(selectedBriefcase[num]);
+          return ""
         }
         if (!checkElement()){
           hideElement();
@@ -101,23 +110,52 @@
           hideElement(offer)
         }
         if (lenBref == 1){
-          document.getElementById(brefIndex).innerHTML = "$" + briefcases[brefIndex];
-          document.getElementById(brefIndex).disabled = true;
-          accept();
+          document.getElementById(brefNum).disabled = false;
+        }
+        if (lenBref == 0){
+          hideElement();
+          document.getElementById(brefNum).innerHTML = "$" + selectedBriefcase[brefNum];
+          document.getElementById(brefNum).disabled = true;
+          acceptF(selectedBriefcase[brefNum]);
         }
       }
       function accept(){
-        alert("WORK NEEDED");
         var x = document.getElementById("offer2"); // Do you accept an offer of $
         var y = document.getElementById("offer"); // Button
         var z = document.getElementById("offer3"); // Press any other button to continue
-        hideElement();
-        x.innerHTML = "You accepted the offer of $" + offer.toString();
+        x.style.display = "block";
+        x.innerHTML = "You opened the briefcase and got $" + offer.toString();
         y.style.display = "none";
         z.style.display = "none";
+        for (let i = 1; i <= 26; i++) {
+          document.getElementById(i.toString()).disabled = true;
+        }
       }
-      function offer(){
-        hideElement("offer")
+      function acceptF(sOffer){
+        var x = document.getElementById("offer2"); // Do you accept an offer of $
+        var y = document.getElementById("offer"); // Button
+        var z = document.getElementById("offer3"); // Press any other button to continue
+        x.style.display = "block";
+        x.innerHTML = "You opened the last briefcase and got $" + offer.toString();
+        z.innerHTML = "Your briefcase contained $" + sOffer;
+        y.style.display = "none";
+        z.style.display = "block";
+        for (let i = 1; i <= 26; i++) {
+          document.getElementById(i.toString()).disabled = true;
+        }
+      }
+      function acceptY(sOffer){
+        var x = document.getElementById("offer2"); // Do you accept an offer of $
+        var y = document.getElementById("offer"); // Button
+        var z = document.getElementById("offer3"); // Press any other button to continue
+        x.style.display = "block";
+        x.innerHTML = "The last briefcase contained $" + offer.toString();
+        z.innerHTML = "Your opened your briefcase which contained $" + sOffer;
+        y.style.display = "none";
+        z.style.display = "block";
+        for (let i = 1; i <= 26; i++) {
+          document.getElementById(i.toString()).disabled = true;
+        }
       }
     </script>
     <h1>Deal or No Deal</h1>
