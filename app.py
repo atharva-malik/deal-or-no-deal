@@ -1,4 +1,4 @@
-from flask import Flask, render_template # ! pip install flask
+from flask import Flask, render_template, request # ! pip install flask
 import os
 # * FUNCTIONS IMPORTS
 #import random, time, getpass, os, json
@@ -497,6 +497,12 @@ def f_add_float_in_descending_order(numbers, new_number):
     return [str(n) + "\n" for n in numbers]
 
 
+@app.route("/process_value", methods=["POST"])
+def process_value():
+    value = request.form["value"]
+    print("value received:", value)
+    return "Value received"
+
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -504,7 +510,14 @@ def home():
 
 @app.route("/login")
 def login():
-    username = f_login()
+    #username = f_login()
+    username = "guest"
+    return render_template("loggedingame.html", username=username)
+
+
+@app.route("/play/<username>")
+def loggedInGame(username):
+    #username = f_login()
     return render_template("login.html", username=username)
 
 

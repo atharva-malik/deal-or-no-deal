@@ -43,6 +43,17 @@
           return true;
         }
       }
+      function   sendToPython(offer) {
+        document.getElementById("instructions").style.display = "none"
+        var myValue = offer.toString();
+        document.getElementById("my-value").value = myValue;
+        
+        // Make an AJAX request to send the value to the Flask backend
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/process_value", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("value=" + myValue);
+      }      
       // All the variables
       var briefcases = generateDictionary();
       var numToEliminate = 6;
@@ -135,7 +146,7 @@
         for (let i = 1; i <= 26; i++) {
           document.getElementById(i.toString()).disabled = true;
         }
-        document.getElementById("instructions").style.display = "none"
+          sendToPython(offer);
       }
       function acceptF(sOffer){
         var x = document.getElementById("offer2"); // Do you accept an offer of $
@@ -146,10 +157,10 @@
         z.innerHTML = "Your briefcase contained $" + sOffer;
         y.style.display = "none";
         z.style.display = "block";
-        document.getElementById("instructions").style.display = "none"
         for (let i = 1; i <= 26; i++) {
           document.getElementById(i.toString()).disabled = true;
         }
+          sendToPython(offer);
       }
       function acceptY(sOffer){
         var x = document.getElementById("offer2"); // Do you accept an offer of $
@@ -160,13 +171,14 @@
         z.innerHTML = "You opened your briefcase which contained $" + sOffer;
         y.style.display = "none";
         z.style.display = "block";
-        document.getElementById("instructions").style.display = "none"
         for (let i = 1; i <= 26; i++) {
           document.getElementById(i.toString()).disabled = true;
         }
+          sendToPython(sOffer);
       }
     </script>
     <h1>Deal or No Deal</h1>
+    <input type="hidden" id="my-value">
     <p id="instructions">Press any briefcase to choose your personal briefcase.</p>
     {%for button in range(1, 27)%}
       <button onclick="main({{button}})" class="btn btn-primary" id="{{button}}">{{button}}</button>
