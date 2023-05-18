@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request # ! pip install flask
-import os
+import os, json
 # * FUNCTIONS IMPORTS
 #import random, time, getpass, os, json
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1' #* This is to hide the pygame welcome message
@@ -508,23 +508,44 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/login")
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    #username = f_login()
-    username = "guest"
-    return render_template("loggedingame.html", username=username)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        print(f'Username: {username}, Password: {password}')
+        users = json.load(open("users.json", "r"))
+        if username not in users:
+            print("Wrong username!")
+        else:
+            correct_password = password_management.retrieve_password(username) #* This is decrypted and taken from the users.json file
+            if password == correct_password:
+                print("Login Success!")
+                return username #TODO: FIX ME
+            else:
+                print("Wrong password!") #* If the password is incorrect, the loop restarts
+    return render_template('login.html')
 
 
 @app.route("/play/<username>")
 def loggedInGame(username):
-    #username = f_login()
-    return render_template("login.html", username=username)
+    return render_template("loggedingame.html", username=username)
 
 
-@app.route("/signup")
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    username = f_signup()
-    return render_template("signup.html", username=username)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        print(f'Username: {username}, Password: {password}')
+        #* This function allows the user to create an account
+        if username in json.load(open("users.json", "r")): #* This checks if the username already exists
+            print("Username already exists!")
+            return username #TODO: FIX ME
+        password, key = password_management.encrypt_password(password) #* This is encrypted and stored in the users.json file
+        password_management.store_password(password, key, username)
+        print("Account created!")
+    return render_template('signup.html')
 
 
 @app.route("/game")

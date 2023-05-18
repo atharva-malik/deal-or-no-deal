@@ -1,26 +1,72 @@
-{% extends 'base.html' %}
-
-{% block head %}
-    <title>Sign Up form</title>
-{% endblock %}
-
-{% block body %}
-    <h1 style="text-align: center">Sign Up</h1>
-    <br/>
-    <br/>
-    <form method="post" class="the_form">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="a" name="name">
-            <label for="floatingInput">Username</label>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .signup-form {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-top: 50px;
+      }
+      .form-control:focus {
+        box-shadow: none;
+      }
+      .signup-btn {
+        background-color: #007bff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+      }
+      .signup-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+      .signup-link {
+        color: #007bff;
+        text-decoration: none;
+      }
+      .signup-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-12">
+          <div class="signup-form">
+            <h3>Signup</h3>
+            <form method="POST" action="{{ url_for('signup') }}">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary signup-btn">Signup</button>
+            </form>
+            <br>
+            <p>Already have an account? <a href="{{ url_for('login') }}" class="signup-link">Login</a></p>
+          </div>
         </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-            <label for="floatingPassword">Password</label>
-        </div>
-        <br/><button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <br/>
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
-{% endblock %}
+      </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

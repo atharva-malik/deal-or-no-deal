@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .login-form {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-top: 50px;
+      }
+      .form-control:focus {
+        box-shadow: none;
+      }
+      .login-btn {
+        background-color: #007bff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+      }
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+      .login-link {
+        color: #007bff;
+        text-decoration: none;
+      }
+      .login-link:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
-    <h1>Welcome, {{ username }}! Nice to see you back!</h1>
-    <p>Your score has been added to the highscore list.</p>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-12">
+          <div class="login-form">
+            <h3>Login</h3>
+            <form method="POST" action="{{ url_for('login') }}">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary login-btn">Login</button>
+            </form>
+            <br>
+            <p>Don't have an account? <a href="{{ url_for('signup') }}" class="login-link">Sign up</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   </body>
 </html>
