@@ -510,21 +510,33 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = ""
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         print(f'Username: {username}, Password: {password}')
         users = json.load(open("users.json", "r"))
-        if username not in users:
+        if password == "" and username == "":
+            print("You must enter a username and password!")
+            error = "noPasswordOrUsername"
+        elif password == "":
+            print("You must enter a password!")
+            error = "noPassword"
+        elif username == "":
+            print("You must enter a username!")	
+            error = "noUsername"
+        elif username not in users:
             print("Wrong username!")
+            error = "wrongUsername"
         else:
             correct_password = password_management.retrieve_password(username) #* This is decrypted and taken from the users.json file
             if password == correct_password:
                 print("Login Success!")
                 return username #TODO: FIX ME
             else:
+                error = "wrongPassword"
                 print("Wrong password!") #* If the password is incorrect, the loop restarts
-    return render_template('login.html')
+    return render_template('login.html', message=error)
 
 
 @app.route("/play/<username>")
@@ -534,18 +546,26 @@ def loggedInGame(username):
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    error = ""
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         print(f'Username: {username}, Password: {password}')
+        if username == "" and password == "":
+            error = "noPasswordAndUsername"
+        elif username == "":
+            error = "noUsername"
+        elif password == "":
+            error = "noPassword"
         #* This function allows the user to create an account
-        if username in json.load(open("users.json", "r")): #* This checks if the username already exists
+        elif username in json.load(open("users.json", "r")): #* This checks if the username already exists
             print("Username already exists!")
-            return username #TODO: FIX ME
-        password, key = password_management.encrypt_password(password) #* This is encrypted and stored in the users.json file
-        password_management.store_password(password, key, username)
-        print("Account created!")
-    return render_template('signup.html')
+            error = "usernameExists"
+        else:
+            password, key = password_management.encrypt_password(password) #* This is encrypted and stored in the users.json file
+            password_management.store_password(password, key, username)
+            print("Account created!")
+    return render_template('signup.html', message=error)
 
 
 @app.route("/game")
