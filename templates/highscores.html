@@ -1,4 +1,28 @@
-{% for score in highscores %}
-    {{score}}
-    <br/>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Highscores</title>
+        <link rel="stylesheet" href="{{ url_for('static',  filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',  filename='css/main.css') }}">
+        <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    </head>
+    <body>
+        <table class="table table-hover table-borderless">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>User</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(1, 11) %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ users[i-1] }}</td>
+                    <td>{{ scores[i-1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</html>
