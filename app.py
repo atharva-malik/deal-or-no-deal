@@ -10,9 +10,6 @@ app = Flask(__name__)
 
 
 # * FUNCTIONS START HERE
-mixer.init() #* This is to initialise the mixer
-audio_file = os.path.dirname(__file__) + '\\background.mp3'
-mixer.music.load(audio_file) #* This is to load the background music and prepare to play/stop it
 
 def f_list_to_string(list):
     #* This function converts a list to a string. It is used with the remaining briefcases
@@ -29,16 +26,6 @@ def f_makePlayers(number):
     for i in range(1, number+1):
         players[str(i)] = 0
     return players
-
-
-def f_play_background_music():
-    #* This functions simply starts the song and sets the number of repeats to infinite
-    mixer.music.play(loops=-1)
-
-
-def f_stop_background_music():
-    #* This function simply stops the song
-    mixer.music.stop()
 
 
 def f_get_offer(briefcases):
@@ -222,8 +209,42 @@ def f_multiplayer(numberOfPlayers):
                     #* If the input is incorrect, the loop restarts
                     continue
 #* FUNCTIONS END HERE
-
+#* Global variables
 loggedInUser = ""
+soundLevel = 1
+musicOnOff = "on"
+
+
+def getSettings():
+    global soundLevel
+    global musicOnOff
+    #* This is used to check whether to play music or not
+    setting_path = os.path.dirname(__file__) + "\\deal_no_deal.settings"
+    settings = []
+    with open(setting_path, "r") as f:
+        for setting in f.readlines():
+            settings.append(setting.strip("\n"))    
+    if settings[0] == "yes music":
+        musicOnOff = "on"
+    elif settings[0] == "no music":
+        musicOnOff = "off"
+    soundLevel = float(settings[1])
+getSettings()
+
+
+def setSettings():
+    global soundLevel
+    global musicOnOff
+    #* This is used to check whether to play music or not
+    setting_path = os.path.dirname(__file__) + "\\deal_no_deal.settings"
+    settings = []
+    with open(setting_path, "w") as f:
+        if musicOnOff == "on":
+            f.write("yes music\n")
+        elif musicOnOff == "off":
+            f.write("no music\n")
+        f.write(str(soundLevel))
+
 
 # * Used for the highscores
 def f_add_float_in_descending_order(numbers, new_number):
@@ -238,14 +259,73 @@ def f_add_float_in_descending_order(numbers, new_number):
     return [str(n) + "\n" for n in numbers]
 
 
+def insertIntoHighs(acceptedOffer):
+    global loggedInUser
+    #* Get list of scores 
+    scores = []
+    users = []
+    with open('highscores.csv', 'r') as file:
+        #* Create a reader object
+        reader = csv.reader(file)
+        #* Iterate over the rows in the reader object and extract the values from the desired columns
+        for row in reader:
+            scores.append(row[0])
+            users.append(row[1])
+    #* Insert scores
+    index = 0
+    if float(acceptedOffer) < float(scores[-1]):
+        return "" #* This means it is the lowest number on the sorted list
+    for score in scores:
+        if float(acceptedOffer) >= float(score):
+            break
+        index+=1
+    scores.remove(scores[-1])
+    users.remove(users[-1])
+    scores.insert(index, acceptedOffer)
+    users.insert(index, loggedInUser)
+    print(scores, users)
+    #* Output to file
+    with open('highscores.csv', 'w') as file:
+        index = 0
+        for i in scores:
+            file.write(i + ", " + users[index])
+            file.write("\n")
+            index+=1
+        file.close()
+    return ""
+
 @app.route("/process_value", methods=["POST"])
 def process_value():
-    value = request.form["value"]
-    print("value received:", value)
-    return "Value received"
+    #* As this handles the communications for the whole network, it contains multiple try 
+    #* and excepts to see what value it's receiving.
+    global soundLevel
+    global musicOnOff
+    try:
+        acceptedOffer = request.form["value"]
+        insertIntoHighs(acceptedOffer)
+    except Exception as e:
+        print(e)
+    try:
+        soundLevel = int(request.form["volume"])/100
+    except Exception as e:
+        print(e)
+    try:
+        value = request.form["backgroundmusic"]
+        if value == "":
+            musicOnOff = "on"
+        elif value == "null":
+            musicOnOff = "off"
+    except Exception as e:
+        print(e)
+    setSettings()
+    return ""
+
 
 @app.route("/")
 def home():
+    global loggedInUser
+    if loggedInUser != "":
+        return redirect("/home")
     return render_template("home.html")
 
 
@@ -275,13 +355,19 @@ def login():
     return render_template('login.html', message=error)
 
 
-@app.route("/play/<username>")
+@app.route("/game/<username>")
 def loggedInGame(username):
-    return render_template("loggedingame.html", username=username)
+    global musicOnOff
+    global soundLevel
+    global loggedInUser
+    if loggedInUser == "":
+        return redirect("/login")
+    return render_template("loggedingame.html", musicOnOff=musicOnOff, sound_level=soundLevel)
 
 
 @app.route("/logout")
 def logout():
+    global loggedInUser
     loggedInUser = ""
     return redirect("/")#todo: fixme
 
@@ -318,98 +404,11 @@ def signup():
 
 @app.route("/game")
 def game():
-    """
-    #* This is the main function!
-    #* Initialise all the variables
-    briefcases = f_init_briefcases()
-    offer = 0
-    remaining_briefcases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                            16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-    remaining_briefcases_for_display = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-    remaining_money_for_display = [0.1, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000]
-    briefcases_to_eliminate = 6
-
-    #* Starts the first sequence as you have no choice other than to eliminate 6 briefcases
-    #* as your first move
-    print("You need to eliminate", briefcases_to_eliminate, "briefcases. What briefcases would you like to eliminate?")
-    for i in range(0, briefcases_to_eliminate): #* This statement runs the code, allowing the user to eliminate the number you need to
-        #* This part prints the briefcases left and the amounts of money left to allow strategic decision making
-        print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display),"\nPick", briefcases_to_eliminate, "that you will discard.")
-        #* This section ensures that the user picks a valid briefcases
-        while True:
-            try:
-                number_to_eliminate = int(input("Briefcase to eliminate: "))
-                money = briefcases[str(number_to_eliminate)]
-                break
-            except Exception:
-                continue
-        print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-        #* Removes the briefcase that the user has eliminated from the list of briefcases and changes the color of the briefcase and money to black
-        remaining_briefcases.remove(number_to_eliminate)
-        remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-        remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-        time.sleep(3)
-        os.system("cls") #* Clears the screen to make it look cleaner
-    briefcases_to_eliminate -= 1
-    offer = get_offer(briefcases)
-    
-    #* Starts the loop that allows the user to choose [D]eal or [N]o Deal
-    while briefcases_to_eliminate >= 1:
-        #* Allows the user to view the offer and make a strategic decision
-        offer = get_offer(briefcases)
-        print("Remaining briefcases:", list_to_string(remaining_briefcases_for_display), "\nRemaining money", list_to_string(remaining_money_for_display), "\nOffer: $", offer, "Deal or no deal?")
-        choice = input("[D]eal or [N]o Deal? ")
-        if choice.lower() == "d":
-            os.system("cls")
-            #* Stops the game and congratulates the user for accepting the offer
-            print("Good game! You got an offer of $", offer, "and you took it! You won $", offer, "! See you next time!")
-            return offer
-        elif choice.lower() == "n":
-            os.system("cls")
-            #* If there is only one briefcase, the user must take it
-            if len(remaining_briefcases) == 1:
-                print("You have one briefcase left. You must take it.")
-                offer = briefcases.pop(str(remaining_briefcases[0]))
-                print("You won $", offer, "!")
-                return offer
-            #* If he has to eliminate only one briefcase, no point in running the for loop
-            elif briefcases_to_eliminate == 1:
-                #* The internal logic stays the same as the first for loop
-                print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is:", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                while True:
-                    try:
-                        number_to_eliminate = int(input("Briefcase to eliminate: "))
-                        money = briefcases[str(number_to_eliminate)]
-                        break
-                    except Exception:
-                        continue
-                print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-                remaining_briefcases.remove(number_to_eliminate)
-                remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-                remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-            #* Otherwise there are more than one briefcases to eliminate and the for loop runs
-            else:
-                #* The internal logic stays the same as the first for loop
-                for i in range(0, briefcases_to_eliminate):
-                    print("The briefcases are", list_to_string(remaining_briefcases_for_display), "\nLeft over money is: ", list_to_string(remaining_money_for_display), "\nPick", briefcases_to_eliminate, "that you will discard.")
-                    while True:
-                        try:
-                            number_to_eliminate = int(input("Briefcase to eliminate: "))
-                            money = briefcases[str(number_to_eliminate)]
-                            break
-                        except Exception:
-                            continue
-                    print("You removed briefcase", number_to_eliminate, "Which contained", briefcases.pop(str(number_to_eliminate)))
-                    remaining_briefcases.remove(number_to_eliminate)
-                    remaining_briefcases_for_display[number_to_eliminate - 1] = black(str(number_to_eliminate), "bold")
-                    remaining_money_for_display[remaining_money_for_display.index(blue(money, "bold"))] = black(str(money), "bold")
-                    time.sleep(3)
-                    os.system("cls")
-                briefcases_to_eliminate -= 1
-        else:
-            #* If the input is incorrect, the loop restarts
-            continue
-    """
+    global musicOnOff
+    global soundLevel
+    global loggedInUser
+    if loggedInUser != "":
+        return redirect(f"/game/{loggedInUser}")
     return render_template("game.html")
 
 
@@ -444,7 +443,9 @@ def highscores():
 
 @app.route("/settings")
 def settings():
-    return render_template("settings.html")
+    global musicOnOff
+    global soundLevel
+    return render_template("settings.html", musicOnOff=musicOnOff, soundLevel=soundLevel)
 
 
 if __name__ == "__main__":

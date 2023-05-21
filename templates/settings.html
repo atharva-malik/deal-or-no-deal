@@ -1,1 +1,67 @@
-NEEDS WORK!!!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/main.css') }}">
+</head>
+
+<body>
+    <div class="container my-5">
+        <h1 class="mb-3">Settings</h1>
+        <form id="settings-form">
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="background-music" name="background-music">
+                <label class="form-check-label" for="background-music">
+                    Background Music
+                </label>
+            </div>
+            <div class="mb-3">
+                <label for="volume-range" class="form-label">Volume</label>
+                <input type="range" class="form-range" min="0" max="100" value="50" id="volume-range" name="volume">
+            </div>
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+    </div>
+    <a href="/">Home</a>
+    <!-- Bootstrap JS -->
+	<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script>
+		function adjustValues(){
+			var slider = document.getElementById("volume-range");
+			var backgroundmusic = document.getElementById("background-music");
+            slider.value = parseFloat("{{ soundLevel }}")*100
+            if("{{ musicOnOff }}" == "on"){
+                backgroundmusic.checked = "true"
+            }
+            else if ("{{musicOnOff}}" == "off"){
+                backgroundmusic.checked = ""
+            }
+		}
+		adjustValues();
+        // Handle form submission
+        const form = document.querySelector('#settings-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const backgroundmusic = formData.get('background-music');
+            const volume = formData.get('volume');
+			
+			// Make an AJAX request to send the value to the Flask backend
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("POST", "/process_value", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("volume=" + volume);
+			var xhttp2 = new XMLHttpRequest();
+			xhttp2.open("POST", "/process_value", true);
+			xhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp2.send("backgroundmusic=" + backgroundmusic);
+        });
+    </script>
+</body>
+
+</html>

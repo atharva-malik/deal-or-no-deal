@@ -52,3 +52,9 @@ Want to contribute? Great! Pull requests and issues are welcome! [Here] is an ex
    [Python 3.10]: <https://www.python.org/downloads/release/python-3109/>
    [simple-colors]: <https://pypi.org/project/simple-colors/>
    [Here]: <https://www.dataschool.io/how-to-contribute-on-github/>
+
+
+### Credits
+Music by Eric Matyas
+
+www.soundimage.org

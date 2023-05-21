@@ -53,7 +53,7 @@
         xhttp.open("POST", "/process_value", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("value=" + myValue);
-      }      
+      }
       // All the variables
       var briefcases = generateDictionary();
       var numToEliminate = 6;
@@ -178,6 +178,10 @@
       }
     </script>
     <h1>Deal or No Deal</h1>
+    <audio id="bg-music" controls autoplay loop style="display: none;">
+      <source src="{{ url_for('static', filename='audio/song.mp3') }}" style="display: none;" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
     <input type="hidden" id="my-value">
     <p id="instructions">Press any briefcase to choose your personal briefcase.</p>
     {%for button in range(1, 27)%}
@@ -191,5 +195,18 @@
     <br/>
     <a href="/">Home</a>
     <br/>
+    <script>
+      var bgMusic = document.getElementById("bg-music");
+      var music = "{{ musicOnOff }}"
+      var sound_level = parseFloat("{{ sound_level }}")
+      bgMusic.volume = sound_level; // set volume to sound_level
+      // Pause playback when the user clicks anywhere on the page
+      if (music == "off"){
+        bgMusic.pause()
+      }
+      else if (music == "on") {
+        bgMusic.play();
+      }
+    </script>
   </body>
 </html>
