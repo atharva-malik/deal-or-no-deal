@@ -1,1 +1,39 @@
-NEEDS WORK!!!
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deal or No Deal</title>
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  </head>
+  <body>
+    <h1>Deal or No Deal Tutorial</h1>
+    <p id="instructions">Welcome to the tutorial!</p>
+    <button onclick="next1()" class="btn btn-primary" id="next">Next</button>
+    <a href="/game" id="teleport" style="display: none">Play a game?</a>
+    <br/>
+    <a href="/">Home</a>
+    <br/>
+    <script>
+      var text = document.getElementById("instructions");
+      var button = document.getElementById("next");
+      var next = document.getElementById("teleport");
+      function next1(){
+        text.innerHTML = "The game works thus, you select your personal briefcase, this is disabled and coloured grey.";
+        button.onclick = next2;
+      }
+      function next2(){
+        text.innerHTML = "Then you eliminate briefcases. These will be eliminated from the prize pool. Once you have eliminated enough briefcases, the banker will give you an offer.";
+        button.onclick = next3;
+      }
+      function next3(){
+        text.innerHTML = "Should you accept, the game will end, and you will have won that money. The other ending is where there are only 2 briefcases left, one normal one and the one that you picked.";
+        button.onclick = next4;
+      }
+      function next4(){
+        text.innerHTML = "Now you pick a briefcase that you want to take home with you, now the game is over. Simple right? Ready to try?";
+        next.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

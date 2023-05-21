@@ -1,1 +1,43 @@
-NEEDS WORK!!!
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deal or No Deal</title>
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  </head>
+  <body>
+    <h1>Deal or No Deal Tutorial</h1>
+    <p id="instructions">Welcome to the multiplayer tutorial!</p>
+    <button onclick="next1()" class="btn btn-primary" id="next">Next</button>
+    <a href="/multiInit" id="teleport" style="display: none">Play a game?</a>
+    <br/>
+    <a href="/">Home</a>
+    <br/>
+    <script>
+      var text = document.getElementById("instructions");
+      var button = document.getElementById("next");
+      var next = document.getElementById("teleport");
+      function next1(){
+        text.innerHTML = "The game works thus, players take turns, eliminating one briefcase each.";
+        button.onclick = next2;
+      }
+      function next2(){
+        text.innerHTML = "These will be eliminated from the prize pool. After every elimination, the banker will give an offer.";
+        button.onclick = next3;
+      }
+      function next3(){
+        text.innerHTML = "Should a player accept, the game will end for that player, and they will have won that much money.";
+        button.onclick = next4;
+      }
+      function next4(){
+        text.innerHTML = "The other ending is where there is only 1 briefcases left. The player that picks the briefcase will win its contents will everyone else who hasn't won will end up with $0.";
+        button.onclick = next5;
+      }
+      function next5(){
+        text.innerHTML = "The person with the most money wins! Simple right? Ready to try?";
+        next.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

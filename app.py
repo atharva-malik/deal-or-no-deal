@@ -409,7 +409,7 @@ def game():
     global loggedInUser
     if loggedInUser != "":
         return redirect(f"/game/{loggedInUser}")
-    return render_template("game.html")
+    return render_template("game.html", musicOnOff=musicOnOff, sound_level=soundLevel)
 
 
 @app.route("/tutorial")
@@ -424,7 +424,25 @@ def multiplayer_tutorial():
 
 @app.route("/multiplayer/<int:players>")
 def multiplayer(players):
-    return render_template("multiplayer.html", players=players)
+    global musicOnOff
+    global soundLevel
+    return render_template("multiplayer.html", players=players, musicOnOff=musicOnOff, sound_level=soundLevel)
+
+
+@app.route("/multiInit", methods=["GET", "POST"])
+def mInit():
+    error = ""
+    if request.method == "POST":
+        numberOfPlayers = request.form['players']
+        try:
+            numberOfPlayers = int(numberOfPlayers)
+            if numberOfPlayers > 4 or numberOfPlayers < 2:
+                error = "between42"
+            else:
+                return redirect(f"/multiplayer/{numberOfPlayers}")
+        except Exception:
+            error = "notInt"
+    return render_template("mInit.html", error=error)
 
 
 @app.route("/highscores")

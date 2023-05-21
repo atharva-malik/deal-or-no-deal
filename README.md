@@ -1,19 +1,26 @@
 # Deal or no Deal
 
-This game is clone of the popular show, Deal or no Deal. It comes with a wide variety of features like, user login and sign up, multiplayer, background music, CLI interface, settings, multiple tutorials, etcetera. It is fully functional and extremely easy to use!
+This game is clone of the popular show, Deal or no Deal. It comes with a wide variety of features like, user login and sign up, multiplayer, background music, CLI interface, settings, multiple tutorials, Web app interface, etcetera. It is fully functional and extremely easy to use!
 
 ## Features
 
 - Easy to use
-- Thoroughly commented and easily editable code 
+- Thoroughly commented and easily editable python code 
 - Comes with basic CLI interface
+- Comes with basic Web app interface
 - Comes with a basic user login and sign up system
 - Encrypted password storage for extra security
-- Background music to help you concentrate
+- Background music to help you concentrate in-game
 
-## Technologies Used
+## Technologies Used (CLI)
 
 This console application uses 2 main technologies on the front end, [Python 3.10] and the [simple-colors] module, but uses lots of different technologies in the background like the keyboard module (to take user input in a more intuitive manner) and [PyGame] (to help with the background music)
+
+
+## Technologies Used (Web app)
+
+This web application uses 2 main technologies on the front end, [Python 3.10] and the [flask] module, but uses lots of different technologies in the background like JavaScript (to make the web app more interactive and functional, even offline) and [PyGame] (to help with the background music)
+
 
 ## Installation
 
@@ -22,8 +29,8 @@ Install the repository and the following packages and you are good to go!
 pip install -r .\requirements.txt
 ```
 
-## Execution
-To run the script, navigate to the directory of installation in terminal and type:
+## Execution for CLI version
+To run the script, navigate to the directory of installation. From there, got to CODE FOR CLI, open it in terminal and type:
 ```sh
 py -3 main.py
 ```
@@ -33,9 +40,18 @@ The default username and password are:
 * Username: admin
 * Password: admin
 
+## Execution for Web app version
+To run the script, navigate to the directory of installation, open it in terminal and type:
+```sh
+py -3 app.py
+```
+The default username and password are:
+* Username: admin
+* Password: admin
+
 ## <span style="color:#FF0000;">WARNING</span> 
 
-The keyboard module is very dangerous and therefore I recommend that you do not allow this script to run in the background as it will record all keystrokes while the script is running. It will also press keys like "backspace" to try and counteract the effects of keys being stored in the RAM. This can be dangerous if you are not in the terminal window as this can delete your work!
+The keyboard module used in the CLI is very dangerous and therefore I recommend that you do not allow this script to run in the background as it will record all keystrokes while the script is running. It will also press keys like "backspace" to try and counteract the effects of keys being stored in the RAM. This can be dangerous if you are not in the terminal window as this can delete your work!
 
 ## Development
 
@@ -52,9 +68,12 @@ Want to contribute? Great! Pull requests and issues are welcome! [Here] is an ex
    [Python 3.10]: <https://www.python.org/downloads/release/python-3109/>
    [simple-colors]: <https://pypi.org/project/simple-colors/>
    [Here]: <https://www.dataschool.io/how-to-contribute-on-github/>
+   [flask]: <https://pypi.org/project/Flask/>
 
 
 ### Credits
 Music by Eric Matyas
 
 www.soundimage.org
+
+Image from Linkedin

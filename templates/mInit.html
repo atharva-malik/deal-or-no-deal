@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deal or No Deal</title>
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  </head>
+  <body>
+    <h1>Deal or No Deal Multiplayer</h1>
+    <form method="POST" action="{{ url_for('mInit') }}">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" name="players" id="players" placeholder="players">
+        <label class="" id="playersL" for="players">Number of players</label>
+      </div>
+      <br/>
+      <button type="submit" class="btn btn-primary login-btn">Go</button>
+    </form>
+  </body>
+  <script>
+    var message = "{{ error }}";
+    var playersBox = document.querySelector("#players");
+    var playersLabel = document.getElementById("playersL");
+    function callError() {
+      if (message == "between42"){
+        playersLabel.innerHTML = "Must be between 4 & 2!";
+        playersBox.classList.add('is-invalid');
+      }
+      else if (message == "notInt"){
+        playersLabel.innerHTML = "Must be whole number!";
+        playersBox.classList.add('is-invalid');
+      }
+      else{
+        playersBox.classList.remove('is-invalid');
+      }
+    }
+    callError();
+  </script>
+</html>
