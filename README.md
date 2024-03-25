@@ -30,7 +30,7 @@ pip install -r .\requirements.txt
 ```
 
 ## Execution for CLI version
-To run the script, navigate to the directory of installation. From there, got to CODE FOR CLI, open it in terminal and type:
+To run the script, navigate to the directory of installation. From there, go to CODE FOR CLI, open it in terminal and type:
 ```sh
 py -3 main.py
 ```
